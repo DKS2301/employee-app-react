@@ -1,0 +1,43 @@
+/* Components */
+
+.file-upload {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    height: fit-content;
+
+    input {
+        display: none;
+    }
+
+    div {
+        display: flex;
+        flex-direction: row;
+        justify-content: end;
+        align-items: center;
+        gap: 5px;
+        width: 100%;
+        outline: none;
+        border: 1px solid var(--theme-border);
+        border-radius: 5px;
+        padding: 13px 10px 13px 10px;
+        background-color: var(--theme-muted-background);
+
+        p {
+            color: var(--theme-muted-foreground);
+        }
+
+        img {
+            width: 18px;
+            height: 18px;
+        }
+    }
+}
+
+.main-body {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--theme-muted-background);
+}
+
+
