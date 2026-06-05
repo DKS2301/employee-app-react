@@ -1,14 +1,15 @@
-import React, { useState } from 'react'
 import Header from '../../components/Header'
+import banner from '../../assets/images/working-people.png'
+import './LandingPage.css'
 
 function LandingPage() {
     return (
         <>
         <Header/>
         <main className='landing-page'>
-            <div className="banner-image">
+            <div className="landing-banner">
                 <div>
-                <img src="./src/assets/images/working-people.png" alt="Banner image"/>
+                <img src={banner} alt="Banner image"/>
                 </div>
             </div>
             <div className='landing-right'>

@@ -1,0 +1,49 @@
+.employee-details{
+    list-style: none;
+    padding: 10px 25px;
+    margin: 0;
+    align-items: center;
+    border-radius: 15px;
+    box-shadow: 0px 20px 15.4px 5px var(--theme-shadow);
+    background-color: white;
+}
+
+.detail-row-1{
+    display: grid;
+    grid-template-columns:
+        1.5fr 
+        1.5fr 
+        1.5fr
+        1.5fr
+        1fr 
+        1fr 
+        1fr;
+}
+
+.seperator{
+    background-color: #E5E8ED;
+    width: 90vh;
+    height: 0.05vh;
+}
+.detail-row-2{
+    display: grid;
+    grid-template-columns:
+        1.5fr 
+        1.5fr 
+        1.5fr
+        1.5fr
+        1fr 
+        1fr 
+        1fr;
+}
+
+.detail-item{
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    gap: 1vh;
+}
+
+.detail-label{
+    color: #8991A1;
+}

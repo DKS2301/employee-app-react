@@ -1,16 +1,34 @@
-import React from 'react'
+import React, { useState } from 'react'
 import paperclip from '../assets/images/paperclip.svg'
 import InputGroup from './InputGroup'
 import Button from './Button'
+import type { FormProps } from 'react-router'
 
-function Form() {
+type Employee = {
+    id?: string;
+    name?: string;
+    joiningDate?: string;
+    role?: string;
+    status?: string;
+    experience?: string;
+    address?: string;
+};
 
+interface employeeProps{
+    employeeData?: Employee;
+};
+
+function Form({employeeData}: employeeProps) {
+    // const [formData, setFormData] = useState({})
     const onSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         const formData = new FormData(e.currentTarget);
         console.log(formData.get('employee-name'))
     }
+
+    console.log("a=", employeeData)
+    
     return (
         <form className="card" onSubmit={(e)=>onSubmit(e)}>
 
@@ -18,12 +36,14 @@ function Form() {
             label="Employee Name"
             id="employee-name"
             name="employee-name"
+            defaultValue={employeeData?.name || ''}
         />
 
         <InputGroup
             label="Employee ID"
             id="employee-id"
             name="employee-id"
+            defaultValue={employeeData?.id || ''}
         />
 
         <InputGroup
@@ -31,6 +51,7 @@ function Form() {
             id="joining-date"
             type="date"
             name="joining-date"
+            defaultValue={employeeData?.joiningDate  || ''}
         />
 
         <InputGroup
@@ -38,6 +59,7 @@ function Form() {
             id="role"
             variant="select"
             name='role'
+            defaultValue={employeeData?.role || ''}
             options={[
             { value: "SWE" },
             { value: "QA" },
@@ -49,6 +71,7 @@ function Form() {
             id="status"
             variant="select"
             name='status'
+            defaultValue={employeeData?.status  || ''}
             options={[
             { value: "Active" },
             { value: "Terminated" },
@@ -59,6 +82,7 @@ function Form() {
             label="Experience"
             id="experience"
             name="experience"
+            defaultValue={employeeData?.experience || ''}
         />
 
         <div className="input-group">
@@ -68,6 +92,7 @@ function Form() {
             id="address"
             placeholder="Address Line 1"
             name='address'
+            value={employeeData?.address || ''}
             />
 
             <div className="address-group">

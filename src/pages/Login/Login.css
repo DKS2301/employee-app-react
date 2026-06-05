@@ -1,6 +1,7 @@
+
 /* Layout Styles */
 
-.main-login {
+main {
     display: flex;
     flex-direction: row;
     background-color: var(--theme-background);

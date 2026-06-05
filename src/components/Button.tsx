@@ -3,13 +3,14 @@ import React, { type ReactNode } from 'react'
 interface buttonProps{
   typeName?: string,
   className: string, 
-  label: ReactNode
+  label: ReactNode,
+  onClick?:  React.MouseEventHandler<HTMLButtonElement>
 }
 
-function Button({typeName="text", className, label}: buttonProps) {
+function Button({typeName="text", className, label, onClick=()=>{}}: buttonProps) {
   return (
     <>
-        <button itemType={typeName} className={className}>{label}</button>
+        <button itemType={typeName} className={className} onClick={onClick}>{label}</button>
     </>
   )
 }
