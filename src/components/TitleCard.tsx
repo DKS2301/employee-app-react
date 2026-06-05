@@ -9,7 +9,9 @@ function TitleCard({label, children}: titleProps) {
   return (
     <div className="card title-container">
         <h1>{label}</h1>
+        <div className='add-props'>
         {children}
+        </div>
     </div>
   )
 }

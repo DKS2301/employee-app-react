@@ -1,9 +1,16 @@
 import React from 'react'
 
-function Input(props: { type: string, label: string, placeholder: string, isRequired: boolean}) {
+interface inputProps{
+  type: string,
+  label: string,
+  placeholder: string,
+  isRequired: boolean,
+  onChange: React.ChangeEventHandler<HTMLInputElement>,
+}
+function Input( {type, label, placeholder, isRequired, onChange}: inputProps) {
   return (
     <>
-        <input type={props.type} name={props.label} placeholder={props.placeholder} required={props.isRequired}/>
+        <input type={type} name={label} placeholder={placeholder} required={isRequired} onChange={onChange}/>
     </>
   )
 }

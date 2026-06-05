@@ -13,9 +13,14 @@ function Chatbox() {
             Help Desk   
         </div>
         <div className='chatbox-content'>
-            <Message content='Lorem Ipsum dolor sit amet' id='sent'/>
-            <Message content='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' id='received'/>
-            <Message content={<img src={typing} alt='typing'/>} id='received'/>
+            {/* <div className='messages' > */}
+                <Message content='Lorem Ipsum dolor sit amet' id='sent'/>
+                <Message content='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' id='received'/>
+                <Message content={<img src={typing} alt='typing'/>} id='received'/>
+                {/* <Message content='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' id='received'/>
+                <Message content='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' id='received'/> */}
+
+            {/* </div> */}
             <div className="send-tab">
                 <input placeholder="Type your message here.." />
                 <Button className="send-btn" label={<img src={send} alt="send"/>}/>

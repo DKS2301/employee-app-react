@@ -12,6 +12,7 @@
     --theme-primary-text: #ffffff;
     --theme-border: #cccccc;
     --theme-shadow: #0000000a;
+    --theme-error: hsl(0, 83%, 55%);
 }
 
 * {
@@ -96,11 +97,6 @@ main {
         width: 100%;
         height: 100%;
         padding: 20px;
-
-        .title-container h1 {
-            font-size: 24px;
-            font-weight: 700;
-        }
 
         form {
             width: 100%;
@@ -263,19 +259,33 @@ nav {
     .add-props{
         display: flex;
         flex-direction: row;
+        gap: 30px;
     }
     div{
         display: flex;
         flex-direction: row;
-        justify-content: space-between;
-        select{
-            width:90px;
-            height: 26px;
-            background-color: #EAF9FF;
-            font-weight:bold;
-            color: #19202D;
+        align-items: center;
+        label{
+            color: #8991A1;
         }
-
+        div{
+            gap: 10px;
+            position: relative;
+            select{
+                width:90px;
+                height: 26px;
+                background-color: #EAF9FF;
+                font-weight:bold;
+                border-radius: 13px;
+            }
+            img{
+                position: absolute;
+                width: 7px;
+                height: 7px;
+                right: 15%;
+                top:40%;
+            }
+        }
     }
     button{
         background-color: #EAF9FF;
@@ -290,6 +300,102 @@ nav {
             background-color: var(--theme-primary);
             padding: 10px;
             border-radius: 50%;
+        }
+    }
+}
+
+.employee-title ul,
+.employee-row ul {
+    display: grid;
+    grid-template-columns:
+        2fr 
+        1fr 
+        1.5fr
+        1.5fr
+        1fr 
+        1fr 
+        1fr;
+
+    list-style: none;
+    padding: 6px 25px;
+    margin: 0;
+    align-items: center;
+    border-radius: 8px;
+    box-shadow: inset;
+}
+
+.employee-title {
+    font-weight: bold;
+    background-color: #EAF9FF;
+}
+
+.employee-row {
+    border-bottom: 1px solid #ffffff;
+    background-color: white;
+}
+
+.error{
+    color: var(--theme-error);
+}
+
+#status{
+    width: 90px;
+    border-radius: 13px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.active{
+    background-color: #DAF6E1;
+    color: #00812F;
+
+}
+
+.probation{
+    background-color: #FFF8D7;
+    color: #AA8A00;
+}
+
+.inactive{
+    background-color: #FFE2E2;
+    color: #DC3232;
+}
+
+.actions{
+    background-color: #FFFFFF;
+}
+
+.landing-page{
+    display: flex;
+    flex-direction: row;
+    background-color: #F3F7FB;
+    h4{
+        color: #DB143C;
+        font-size: 44px;
+    }
+    h1{
+        font-size: 72px;
+    }
+    div{
+        justify-content: center;
+        align-content: center;
+    }
+}
+
+.banner-image {
+    display: flex;
+    width: 50%;
+    padding: 20px;
+    height: 100vh;
+    div {
+        display: flex;
+        width: 100%;
+        height: 100%;
+        img {
+            width: 70%;
+            aspect-ratio: 1;
+            border-radius: 50%;
+            margin: auto;
         }
     }
 }
