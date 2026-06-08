@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
 import bin from '../../assets/images/bin.svg'
 import pen from '../../assets/images/pen.svg'
 import Button from '../../components/Button'
-import { Link } from 'react-router';
+import { useNavigate } from 'react-router';
+import DialogBox from '../DialogBox';
 
 interface Employee{
     id: string;
@@ -14,10 +15,12 @@ interface Employee{
 }
 
 interface rowProps{
-    employee: Employee
+    employee: Employee,
+    deleteAction: React.MouseEventHandler<HTMLButtonElement>,
+    editAction: React.MouseEventHandler<HTMLButtonElement> 
 }
 
-function Row({employee} : rowProps) {
+function Row({employee, deleteAction, editAction} : rowProps) {
   return (
     <div className="table-row" key={employee.id}>
         <ul>
@@ -27,7 +30,10 @@ function Row({employee} : rowProps) {
         <li>{employee.role}</li>
         <li className={employee.status.toLowerCase()} id='status-row'>{employee.status}</li>
         <li>{employee.experience}</li>
-        <li><Button className='actions' label = {<img src={bin}/>}/> <Link to={'/employee/edit'}><Button className='actions' label = {<img src={pen}/>}/></Link></li>
+        <li>
+            <Button className='actions' label = {<img src={bin}/>} onClick={(e) => {deleteAction(e)}}/> 
+            <Button className='actions' label = {<img src={pen}/>} onClick={editAction}/>
+        </li>
         </ul>
     </div>  
     )

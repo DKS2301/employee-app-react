@@ -1,6 +1,5 @@
 import { createBrowserRouter } from 'react-router'
 import Chatbox from '../components/Chatbox'
-import EmployeeList from '../pages/EmployeeList/EmployeeList'
 import Login from '../pages/Login/Login'
 import EmployeeCreate from '../pages/EmployeeCreate/EmployeeCreate'
 import LandingPage from '../pages/LandingPage.tsx/LandingPage'
@@ -9,6 +8,8 @@ import NotFound from '../pages/NotFound/NotFound'
 import ErrorPage from '../pages/ErrorPage/ErrorPage'
 import EmployeeDetails from '../pages/EmployeeDetails/EmployeeDetails'
 import ProtectedRoute from '../pages/ProtectedRoute'
+import React from 'react'
+import EmployeeList from '../pages/EmployeeList/EmployeeList'
 
 export const router = createBrowserRouter([
   {
@@ -38,6 +39,10 @@ export const router = createBrowserRouter([
                 },
                 {
                     path: "create/:id",
+                    element: <EmployeeCreate/>
+                },
+                {
+                    path: "create",
                     element: <EmployeeCreate/>
                 },
                 {

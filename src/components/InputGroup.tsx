@@ -15,12 +15,6 @@ interface inputProps{
 }
 
 function InputGroup({label, id, type='text', variant = "input", options = [], name ='', defaultValue =''} : inputProps) {
-    debugger
-
-    console.log({
-        label,
-        defaultValue
-    })
   return (    
     <div className="input-group">
         <label htmlFor={id}>{label}</label>

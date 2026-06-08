@@ -31,6 +31,7 @@ select {
     border-radius: 5px;
     padding: 15px 10px 15px 10px;
     appearance: none;
+    color: var(--theme-foreground);
 }
 
 button {
@@ -77,7 +78,6 @@ header {
     padding: 20px;
     border-bottom: 1px solid var(--theme-border);
     background-color: var(--theme-background);
-
     .logo {
         width: 220px;
         object-fit: cover;
@@ -89,9 +89,9 @@ main {
     flex-direction: row;
     width: 100%;
     overflow: hidden;
-
     .contents {
         display: flex;
+        background-color: var(--theme-muted-background);
         flex-direction: column;
         gap: 20px;
         width: 100%;
@@ -110,6 +110,7 @@ main {
                 input,
                 select {
                     background-color: var(--theme-muted-background);
+                    color: #000000;
                 }
             }
 
@@ -143,7 +144,7 @@ nav {
       flex-direction: column;
       align-items: end;
       gap: 10px;
-      min-width: max(20%, 300px);
+      min-width: max(10%, 25vh);
       background-color: var(--theme-background);
       padding: 20px 0px 20px 0px;
 
@@ -178,7 +179,7 @@ nav {
   display: flex;
   flex-direction: column;
   background-color: #ffffff;
-  position: absolute;
+  position: fixed;
   bottom: 10%;
   right: 5%;
   box-shadow: 0px 20px 15.4px 5px var(--theme-shadow);
@@ -203,6 +204,8 @@ nav {
     flex-direction: column;
     padding: 20px;
     gap: 12px;
+    overflow: scroll;
+    height: 28vh;
   }
 
   .send-tab {
@@ -251,9 +254,12 @@ nav {
   align-self: flex-start;
 }
 
-.chatbox-closed{
+.closed{
     border-radius: 50%;
-    background-color: var(--theme-primary   );
+    background-color: var(--theme-primary);
+    height: 68px;
+    width: 68px;
+    padding: 15px;
 }
 
 .title-container{
@@ -277,10 +283,10 @@ nav {
             position: relative;
             select{
                 width:90px;
-                height: 26px;
+                height: 36px;
                 background-color: #EAF9FF;
-                font-weight:bold;
                 border-radius: 13px;
+                color: #000000;
             }
             img{
                 position: absolute;
@@ -304,6 +310,111 @@ nav {
             background-color: var(--theme-primary);
             padding: 10px;
             border-radius: 50%;
+        }
+    }
+}
+
+.dialog-box{
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    background-color: var(--theme-shadow);
+    justify-content: center;
+    align-items: center;
+    gap: 2vh;
+    background-color: #0000004D ;
+    z-index: 1;
+    .dialog-contents{
+        display: flex;
+        flex-direction: column;
+        background-color: var(--theme-background);
+        justify-content: center;
+        align-items: center;
+        border-radius: 16px;
+        gap: 2.5vh;
+        h4{
+            font-weight: bold;
+            font-size: 2vh;
+        }
+        h5{
+            font-size: 1.75vh;
+            justify-content: flex-start;
+        }
+        h6{
+            font-size: 1.5vh;
+        }
+    }
+    .delete{
+        height: 20vh;
+        width: 40vh;
+        padding: 5vh;
+    }
+    .upload{
+        height: 38vh;
+        width: 55vh;
+        padding: 2vh;
+        display: flex;
+        flex-direction: column;
+        padding: 20px;
+        font-weight: bold;
+        div{
+            color: var(--theme-primary);
+            div{
+                display: flex;
+                flex-direction: row;
+            }
+        }
+        .title{
+            display: flex;
+            flex-direction: row;
+            color: var(--theme-foreground);
+            gap: 35vh;
+        }
+    }
+    .upload-box{
+        border: dashed 0.5px #183072;
+        border-radius: 24px;
+        height: 100vh;
+        width: 50vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 15px;
+        .upload-img{
+            height: 2vh;
+        }
+        .cloud-img{
+            height: 6vh;
+        }
+        div{
+            gap: 1.5vh;
+            align-content: center;
+            p{
+                font-size: 1.5vh;
+            }
+        }
+        .or{
+            font-size: 1.5vh;
+            font-weight: lighter;
+            color: var(--theme-foreground);
+        }
+    }
+    .button-group{
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        gap: 1vh;
+        button{
+            width: 100vh;
+        }
+        .outline{
+            color: #63667A;
+
         }
     }
 }

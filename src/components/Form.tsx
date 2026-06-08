@@ -2,7 +2,11 @@ import React, { useState } from 'react'
 import paperclip from '../assets/images/paperclip.svg'
 import InputGroup from './InputGroup'
 import Button from './Button'
-import type { FormProps } from 'react-router'
+import { useNavigate, type FormProps } from 'react-router'
+import DialogBox from './DialogBox'
+import cloud from '../assets/images/cloud.svg'
+import upload from '../assets/images/upload.svg'
+import close from '../assets/images/close.svg'
 
 type Employee = {
     id?: string;
@@ -20,9 +24,11 @@ interface employeeProps{
 
 function Form({employeeData}: employeeProps) {
     // const [formData, setFormData] = useState({})
+    const navigate = useNavigate()
+    const [uploadDialog, setUploadDialog] = useState(false)
+
     const onSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
         e.preventDefault();
-
         const formData = new FormData(e.currentTarget);
         console.log(formData.get('employee-name'))
     }
@@ -30,6 +36,37 @@ function Form({employeeData}: employeeProps) {
     console.log("a=", employeeData)
     
     return (
+        <>
+            {uploadDialog &&
+            <DialogBox classNames='upload'>
+            <>
+                <div className='title'>
+                    <h5>Upload Proof</h5>
+                    <img src={close} alt="close"onClick={()=> setUploadDialog(false)}/>
+                </div>
+                <div className='upload-box'>
+                    <div>
+                        <img src={cloud} alt="cloud" className='cloud-img'/>
+                    </div>
+                    <p>Drag & drop excel file here</p> 
+                    <div className='or'>Or</div>
+                    <div>
+                        <img src = {upload} alt='upload' className='upload-img'/>
+                        <p>Upload file</p>
+                        <input
+                        id="id-proof"
+                        name="id-proof"
+                        type="file"
+                        />
+                    </div>
+                </div>
+                <div className="button-group">
+                    <Button typeName='button' className='outline' label='Cancel' onClick={(e)=>{ e.stopPropagation(); setUploadDialog(false)}}/>
+                    <Button typeName='submit' className='primary' label='Upload'/>
+                </div>
+            </>
+            </DialogBox>
+        }
         <form className="card" onSubmit={(e)=>onSubmit(e)}>
 
         <InputGroup
@@ -106,14 +143,9 @@ function Form({employeeData}: employeeProps) {
         <label
             className="file-upload"
             htmlFor="id-proof"
+            onClick={()=> setUploadDialog(true)}
         >
             <p>Upload ID Proof</p>
-
-            <input
-            id="id-proof"
-            name="id-proof"
-            type="file"
-            />
 
             <div>
             <img
@@ -126,10 +158,11 @@ function Form({employeeData}: employeeProps) {
 
         <div className="button-group">
             <Button typeName='submit' className='primary' label='Create'/>
-            <Button typeName='button' className='outline' label='Cancel'/>
+            <Button typeName='button' className='outline' label='Cancel' onClick={()=> navigate(-1)}/>
         </div>
 
-        </form>
+            </form>
+        </>
   )
 }
 
