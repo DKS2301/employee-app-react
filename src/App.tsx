@@ -2,7 +2,7 @@ import './App.css'
 import { RouterProvider } from 'react-router'
 import  {router} from './router/router'
 import {Provider} from 'react-redux';
-// import store from './store/store';
+import store from './store/store';
 
 function App() {
 
@@ -15,10 +15,9 @@ function App() {
       {/* <EmployeeCreate /> */}
       {/* <Chatbox/> */}
       {/* <LandingPage/> */}
-      {/* <Provider store={store}>
-
-      </Provider> */}
+      <Provider store={store}>
         <RouterProvider router= {router} />
+      </Provider>
     </>
   )
 }

@@ -4,13 +4,14 @@ interface buttonProps{
   typeName?: string,
   className: string, 
   label: ReactNode,
-  onClick?:  React.MouseEventHandler<HTMLButtonElement>
+  onClick?:  React.MouseEventHandler<HTMLButtonElement>,
+  disabled?: boolean
 }
 
-function Button({typeName="text", className, label, onClick=()=>{}}: buttonProps) {
+function Button({typeName="text", className, label, onClick=()=>{}, disabled=false}: buttonProps) {
   return (
     <>
-        <button itemType={typeName} className={className} onClick={onClick}>{label}</button>
+        <button itemType={typeName} className={className} onClick={onClick} disabled={disabled}>{label}</button>
     </>
   )
 }

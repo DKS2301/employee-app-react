@@ -1,36 +1,41 @@
-import React, { Suspense, useEffect, useMemo, useState } from 'react'
+import React, { Suspense, useMemo, useState } from 'react'
 import './EmployeeList.css'
 import Card from '../../components/Card'
 import TitleCard from '../../components/TitleCard'
 import add from '../../assets/images/add.svg'
 import dropdown from '../../assets/images/dropdown.svg'
-import { Link, useNavigate } from 'react-router'
+import { useNavigate } from 'react-router'
 import Title from '../../components/Table/Title'
 // import Row from '../../components/Table/Row'
 import Button from '../../components/Button'
 import Chatbox from '../../components/Chatbox'
-import {employees} from '../employees'
 import Fallback from '../../components/Fallback'
 import DialogBox from '../../components/DialogBox'
+import { useSelector } from 'react-redux'
+import type { RootState } from '../../store/store'
+import type { EmployeeRecord } from '../../store/employee/employee.types'
 
 const Row = React.lazy(()=>import('../../components/Table/Row'))
 
-function useFetch(value:string) {
+function useFetch(value:string, employeeList: EmployeeRecord[]) {
     // const [employeeName, setEmployeeName] = useState()
     // const [filter, setFilter] = useState('');
     const filteredEmployees= useMemo(()=>{
-        if(value == 'all') return employees;
-        return employees.filter((employee)=>  employee.status.toLowerCase()==value);
-    },[value])
+        if(value == 'all') return employeeList;
+        return employeeList.filter((employee)=>  employee.status.toLowerCase()==value);
+    },[employeeList, value])
 
     return filteredEmployees
 
 }
 
 function EmployeeList() {
-    const [employeeName,setEmployeeName] = useState('')
+    const employeeList = useSelector(
+        (state: RootState)=> state.employee.employees
+    )
+    console.log(employeeList)
     const [status, setStatus] = useState('all');
-    const filteredEmployees =  useFetch(status)
+    const filteredEmployees =  useFetch(status, employeeList)
     const [dialogOpen, setdialogOpen] = useState(false)
     const navigate = useNavigate()
 
@@ -44,6 +49,16 @@ function EmployeeList() {
         navigate(`create/${id}`)
     }
 
+    function cancelDelete(e: React.MouseEvent<HTMLButtonElement, MouseEvent>){
+        e.stopPropagation(); 
+        setdialogOpen(false)
+    }
+
+    function confirmDelete(e: React.MouseEvent<HTMLButtonElement, MouseEvent>){
+        e.stopPropagation(); 
+        setdialogOpen(false)
+    }
+
     return (
         <>
             {dialogOpen &&
@@ -52,8 +67,8 @@ function EmployeeList() {
                     <h4 >Are you sure ?</h4>
                     <h6>Do you really want to delete employee?</h6>
                     <div className="button-group">
-                        <Button typeName='button' className='outline' label='Cancel' onClick={(e)=>{ e.stopPropagation(); setdialogOpen(false)}}/>
-                        <Button typeName='submit' className='primary' label='Confirm'/>
+                        <Button typeName='button' className='outline' label='Cancel' onClick={(e) => cancelDelete(e)}/>
+                        <Button typeName='submit' className='primary' label='Confirm' onClick={(e) => confirmDelete(e)}/>
                     </div>
                 </>
             </DialogBox>
@@ -81,11 +96,13 @@ function EmployeeList() {
                 </TitleCard>
                 <Title />
                 <Suspense fallback={<Fallback/>} >
-                    {filteredEmployees.map((employee) => (
-                        <div key = {employee.id} onClick={() => navigate(`/employee/${employee.id}`)}>
-                            <Row employee={employee} deleteAction={handleDelete} editAction={(e)=>handleEdit(e,employee.id)}/>
-                        </div>
-                    ))}
+                    <div className='table-rows'>                        
+                        {filteredEmployees.map((employee) => (
+                            <div key = {employee.id} onClick={() => navigate(`/employee/${employee.id}`)}>
+                                <Row employee={employee} deleteAction={handleDelete} editAction={(e)=>handleEdit(e,employee.id)}/>
+                            </div>
+                        ))}
+                    </div>
                 </Suspense>
                 <Chatbox />
             </Card>

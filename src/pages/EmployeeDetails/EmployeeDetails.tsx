@@ -1,16 +1,20 @@
 import React from 'react'
 import Card from '../../components/Card'
 import TitleCard from '../../components/TitleCard'
-import { Link, useNavigate, useParams } from 'react-router'
+import { useNavigate, useParams } from 'react-router'
 import Button from '../../components/Button'
 import pen from '../../assets/images/pen1.svg'
 import './EmployeeDetails.css'
-import {employees} from '../employees'
+import type { RootState } from '../../store/store'
+import { useSelector } from 'react-redux'
 
 function EmployeeDetails() {
   const navigate = useNavigate()
   const {id} = useParams()
-  const {name, joiningDate, role, status, experience, address} = employees.filter((emp)=>emp.id == id)[0]
+  const employeeList = useSelector(
+        (state: RootState)=> state.employee.employees
+    )
+  const {name, joiningDate, role, status, experience, address} = employeeList.filter((emp)=>emp.id == id)[0]
   return (
     <Card>
         <TitleCard label='Employee details'>
@@ -49,7 +53,7 @@ function EmployeeDetails() {
             <div className='detail-row-2'>
                 <div className="detail-item">
                     <span className="detail-label">Address</span>
-                    <span className="detail-value">{address}</span>
+                    <span className="detail-value">{`${address?.line1}, ${address?.line2}, ${address?.city}, ${address?.country}, ${address?.postalCode}`}</span>
                 </div>
                 <div className="detail-item">
                     <span className="detail-label">Employee ID</span>

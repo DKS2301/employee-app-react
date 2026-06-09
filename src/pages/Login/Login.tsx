@@ -2,15 +2,16 @@ import React, { useState } from 'react'
 import Input from '../../components/Input'
 import Button from '../../components/Button'
 import './Login.css'
-import { Link, replace, useNavigate } from 'react-router'
-import InputGroup from '../../components/InputGroup'
+import { useNavigate } from 'react-router'
+import { useLoginMutation } from '../../api-services/auth/login.api'
 
 
 function Login() {
-    const [email,setEmail] = useState('')
-    const [password, setPassword] = useState('')
     const [error, setError] = useState('')
     const navigate = useNavigate()
+    const [email,setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    const [login, {isLoading}] = useLoginMutation();
 
     function handleSubmit(e: React.SubmitEvent<HTMLFormElement>){
         e.preventDefault();
@@ -32,14 +33,18 @@ function Login() {
         setError(passwordError)
     }
 
-    function checkLogin(){
-        const token = localStorage.getItem('token')
-        if (token){
-            navigate('/employee', {replace: true})
-        }
-        else{
-            console.log('NO token')
-        }
+    async function checkLogin(){
+        login({ username: email, password: password }).
+        unwrap()
+        .then((response) =>{
+            console.log(response)
+            localStorage.setItem("access_token", response.access_token);
+            localStorage.setItem("access_token", response.refresh_token);
+            navigate("/employee");
+        }).catch((error)=>{
+            console.log('error',error)
+            setError(error.data.detail)
+        })
     }
 
     return (
@@ -66,7 +71,7 @@ function Login() {
                 </div>
                 {/* <Link to='/employee' >
                 </Link> */}
-                    <Button typeName="submit" className='primary' label="Login" onClick={()=>checkLogin()}/>
+                    <Button typeName="submit" className='primary' label="Login" onClick={()=>checkLogin()} disabled={isLoading}/>
                 <div className='error'>
                     {error}
                 </div>

@@ -2,25 +2,30 @@ import React, { useRef, useState } from 'react'
 import paperclip from '../assets/images/paperclip.svg'
 import InputGroup from './InputGroup'
 import Button from './Button'
-import { useNavigate, type FormProps } from 'react-router'
+import { useNavigate } from 'react-router'
 import DialogBox from './DialogBox'
 import cloud from '../assets/images/cloud.svg'
 import upload from '../assets/images/upload.svg'
 import close from '../assets/images/close.svg'
 import { FileUploader } from 'react-drag-drop-files'
+import { EMPLOYEE_ACTION_TYPES, type EmployeeRecord } from '../store/employee/employee.types'
+import { addEmployee } from '../store/employee/employeeReducer'
+import { useAppDispatch } from '../store/store'
 
-type Employee = {
-    id?: string;
-    name?: string;
-    joiningDate?: string;
-    role?: string;
-    status?: string;
-    experience?: string;
-    address?: string;
-};
+const statuses = [
+    { value: "Probation" },
+    { value: "Active" },
+    { value: "Inctive" },
+    { value: "Terminated" },
+]
 
+const roles = [
+    { value: "Full Stack" },
+    { value: "UI Engineer" },
+    { value: "Devops" },
+]
 interface employeeProps{
-    employeeData?: Employee;
+    employeeData?: EmployeeRecord;
 };
 
 function Form({employeeData}: employeeProps) {
@@ -28,21 +33,48 @@ function Form({employeeData}: employeeProps) {
     const fileTypes = ["JPG", "PNG", "GIF"];
     const navigate = useNavigate()
     const [uploadDialog, setUploadDialog] = useState(false)
-    const fileRef = useRef<HTMLInputElement>(null)
     const [file, setFile] = useState<File>();
-    const handleChange = (file) => {
+    const handleChange = (file: React.SetStateAction<File | undefined>) => {
         setFile(file);
     };
 
-    const onSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
+    const dispatcher = useAppDispatch()
+
+    const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+
         const formData = new FormData(e.currentTarget);
-        console.log(formData.get('employee-name'))
-    }
+
+        const employee: EmployeeRecord = {
+            id: formData.get("employee-id") as string,
+            name: formData.get("employee-name") as string,
+            joiningDate: formData.get("joining-date") as string,
+
+            role: formData.get("role") as string,
+            status: formData.get("status") as EmployeeRecord["status"],
+
+            experience: formData.get("experience") as string,
+
+            address: {
+                line1: formData.get("addressLine1") as string,
+                line2: formData.get("addressLine2") as string,
+                city: formData.get("city") as string,
+                country: formData.get("country") as string,
+                postalCode: formData.get("postalCode") as string,
+            }
+        };
+
+        // dispatcher({
+        //     type: EMPLOYEE_ACTION_TYPES.ADD,
+        //     payload: employee
+        // });
+        dispatcher(addEmployee(employee))
+
+        console.log(employee);
+        navigate('/employee/')
+    };
 
     const uploadFile = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-        console.log(fileRef.current?.value[0])
-        console.log(file)
         setUploadDialog(false)
     }
         
@@ -56,7 +88,7 @@ function Form({employeeData}: employeeProps) {
                     <img src={close} alt="close"onClick={()=> setUploadDialog(false)}/>
                 </div>
                 <FileUploader handleChange={handleChange} name="file" types={fileTypes}>
-                    <div className='upload-box' onClick={() => fileRef.current?.click()}>
+                    <div className='upload-box'>
                         <div>
                             <img src={cloud} alt="cloud" className='cloud-img'/>
                         </div>
@@ -67,18 +99,6 @@ function Form({employeeData}: employeeProps) {
                                     <div>
                                         <img src = {upload} alt='upload' className='upload-img'/>
                                         <p>Upload file</p>
-                                        {/* <input
-                                            id="id-proof"
-                                            name="id-proof"
-                                            type="file"
-                                            hidden
-                                            ref={fileRef}
-                                            onChange={(e)=>{
-                                                setFile(e.target.files?.[0]);
-                                                console.log(file)
-                                            }}
-                                        /> */}
-                                            
                                     </div>
                                 </div>
                         ) :
@@ -128,10 +148,7 @@ function Form({employeeData}: employeeProps) {
             variant="select"
             name='role'
             defaultValue={employeeData?.role || ''}
-            options={[
-            { value: "SWE" },
-            { value: "QA" },
-            ]}
+            options={roles}
         />
 
         <InputGroup
@@ -140,10 +157,7 @@ function Form({employeeData}: employeeProps) {
             variant="select"
             name='status'
             defaultValue={employeeData?.status  || ''}
-            options={[
-            { value: "Active" },
-            { value: "Terminated" },
-            ]}
+            options={statuses}
         />
 
         <InputGroup
@@ -160,14 +174,34 @@ function Form({employeeData}: employeeProps) {
             id="address"
             placeholder="Address Line 1"
             name='address'
-            value={employeeData?.address || ''}
+            defaultValue={employeeData?.address?.line1 || ''}
             />
 
             <div className="address-group">
-            <input placeholder="Address Line 2" />
-            <input placeholder="City" />
-            <input placeholder="Country" />
-            <input placeholder="Postal Code" />
+
+                <input
+                    name="addressLine2"
+                    placeholder="Address Line 2"
+                    defaultValue={employeeData?.address?.line2 || ''}
+                />
+
+                <input
+                    name="city"
+                    placeholder="City"
+                    defaultValue={employeeData?.address?.city || ''}
+                />
+
+                <input
+                    name="country"
+                    placeholder="Country"
+                    defaultValue={employeeData?.address?.country || ''}
+                />
+
+                <input
+                    name="postalCode"
+                    placeholder="Postal Code"
+                    defaultValue={employeeData?.address?.postalCode || ''}
+                />
             </div>
         </div>
 
