@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import paperclip from '../assets/images/paperclip.svg'
 import InputGroup from './InputGroup'
 import Button from './Button'
@@ -7,6 +7,7 @@ import DialogBox from './DialogBox'
 import cloud from '../assets/images/cloud.svg'
 import upload from '../assets/images/upload.svg'
 import close from '../assets/images/close.svg'
+import { FileUploader } from 'react-drag-drop-files'
 
 type Employee = {
     id?: string;
@@ -24,8 +25,14 @@ interface employeeProps{
 
 function Form({employeeData}: employeeProps) {
     // const [formData, setFormData] = useState({})
+    const fileTypes = ["JPG", "PNG", "GIF"];
     const navigate = useNavigate()
     const [uploadDialog, setUploadDialog] = useState(false)
+    const fileRef = useRef<HTMLInputElement>(null)
+    const [file, setFile] = useState<File>();
+    const handleChange = (file) => {
+        setFile(file);
+    };
 
     const onSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -33,8 +40,12 @@ function Form({employeeData}: employeeProps) {
         console.log(formData.get('employee-name'))
     }
 
-    console.log("a=", employeeData)
-    
+    const uploadFile = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        console.log(fileRef.current?.value[0])
+        console.log(file)
+        setUploadDialog(false)
+    }
+        
     return (
         <>
             {uploadDialog &&
@@ -44,25 +55,45 @@ function Form({employeeData}: employeeProps) {
                     <h5>Upload Proof</h5>
                     <img src={close} alt="close"onClick={()=> setUploadDialog(false)}/>
                 </div>
-                <div className='upload-box'>
-                    <div>
-                        <img src={cloud} alt="cloud" className='cloud-img'/>
+                <FileUploader handleChange={handleChange} name="file" types={fileTypes}>
+                    <div className='upload-box' onClick={() => fileRef.current?.click()}>
+                        <div>
+                            <img src={cloud} alt="cloud" className='cloud-img'/>
+                        </div>
+                        {!file  ? (
+                                <div className='upload-options'>
+                                    <p>Drag & drop excel file here</p> 
+                                    <div className='or'>Or</div>
+                                    <div>
+                                        <img src = {upload} alt='upload' className='upload-img'/>
+                                        <p>Upload file</p>
+                                        {/* <input
+                                            id="id-proof"
+                                            name="id-proof"
+                                            type="file"
+                                            hidden
+                                            ref={fileRef}
+                                            onChange={(e)=>{
+                                                setFile(e.target.files?.[0]);
+                                                console.log(file)
+                                            }}
+                                        /> */}
+                                            
+                                    </div>
+                                </div>
+                        ) :
+                        (   
+                            <>
+                            <div>
+                                <p>{file.name}</p>
+                            </div>
+                            </>
+                        )}
                     </div>
-                    <p>Drag & drop excel file here</p> 
-                    <div className='or'>Or</div>
-                    <div>
-                        <img src = {upload} alt='upload' className='upload-img'/>
-                        <p>Upload file</p>
-                        <input
-                        id="id-proof"
-                        name="id-proof"
-                        type="file"
-                        />
-                    </div>
-                </div>
-                <div className="button-group">
-                    <Button typeName='button' className='outline' label='Cancel' onClick={(e)=>{ e.stopPropagation(); setUploadDialog(false)}}/>
-                    <Button typeName='submit' className='primary' label='Upload'/>
+                </FileUploader>
+                <div className="button-group">  
+                    <Button typeName='button' className='outline' label='Cancel' onClick={(e)=>{ setFile(undefined)}}/>
+                    <Button typeName='submit' className='primary' label='Upload' onClick={(e) => {uploadFile(e)}}/>
                 </div>
             </>
             </DialogBox>
@@ -142,17 +173,20 @@ function Form({employeeData}: employeeProps) {
 
         <label
             className="file-upload"
-            htmlFor="id-proof"
             onClick={()=> setUploadDialog(true)}
         >
             <p>Upload ID Proof</p>
 
             <div>
-            <img
-                src={paperclip}
-                alt="file upload icon"
-            />
-            <p>Attach files</p>
+                {file && 
+                <div className='preview'>{file.name} <img className='upload-btn' src={close} alt='close' onClick={(e) => { e.stopPropagation();setFile(undefined)}}/></div>
+                }
+                <p>
+                    <img
+                        src={paperclip}
+                        alt="file upload icon"
+                    />Attach files
+                </p>
             </div>
         </label>
 

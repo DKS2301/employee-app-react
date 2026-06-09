@@ -8,7 +8,7 @@ interface titleProps{
 function TitleCard({label, children}: titleProps) {
   return (
     <div className="card title-container">
-        <h1>{label}</h1>
+        <h2>{label}</h2>
         <div className='add-props'>
         {children}
         </div>

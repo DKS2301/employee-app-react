@@ -13,7 +13,7 @@ function EmployeeDetails() {
   const {name, joiningDate, role, status, experience, address} = employees.filter((emp)=>emp.id == id)[0]
   return (
     <Card>
-        <TitleCard label='Employee Details'>
+        <TitleCard label='Employee details'>
             <Button typeName='submit' label={<><img src={pen} alt='pen' className='details' />Edit details</>} onClick={() => navigate(`/employee/create/${id}`)} className={''} />
         </TitleCard>
         <div className="employee-details">

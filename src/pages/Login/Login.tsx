@@ -3,6 +3,7 @@ import Input from '../../components/Input'
 import Button from '../../components/Button'
 import './Login.css'
 import { Link, replace, useNavigate } from 'react-router'
+import InputGroup from '../../components/InputGroup'
 
 
 function Login() {
@@ -51,14 +52,24 @@ function Login() {
         <div className='login-container'>
             <form onSubmit={(e)=> handleSubmit(e)}>
                 <img src="./src/assets/images/logo.png" alt="Logo" id="logo-image"/>
-                <Input type="text" label="Username" placeholder="Username" isRequired={true} onChange={(e)=>{handleEmailChange(e)}}/>
-                <Input type="password" label="Password" placeholder="Password" isRequired={true} onChange={(e)=>{handlePasswordChange(e)}}/>
-                <div className='error'>
-                    {error}
+                <div className='input-group'>
+                    <Input type="text" label="Username" placeholder=" " isRequired={true} onChange={(e)=>{handleEmailChange(e)}} autoFocus={true}/>
+                    <label htmlFor="username">
+                        Username
+                    </label>
+                </div>
+                <div className='input-group'>
+                    <Input type="password" label="Password" placeholder=" " isRequired={true} onChange={(e)=>{handlePasswordChange(e)}}/>
+                    <label htmlFor="username">
+                        Password
+                    </label>
                 </div>
                 {/* <Link to='/employee' >
                 </Link> */}
                     <Button typeName="submit" className='primary' label="Login" onClick={()=>checkLogin()}/>
+                <div className='error'>
+                    {error}
+                </div>
             </form>
         </div>
     </main>

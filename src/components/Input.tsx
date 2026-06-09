@@ -6,11 +6,12 @@ interface inputProps{
   placeholder: string,
   isRequired: boolean,
   onChange: React.ChangeEventHandler<HTMLInputElement>,
+  autoFocus?: boolean,
 }
-function Input( {type, label, placeholder, isRequired, onChange}: inputProps) {
+function Input( {type, label, placeholder, isRequired, onChange, autoFocus=false}: inputProps) {
   return (
     <>
-        <input type={type} name={label} placeholder={placeholder} required={isRequired} onChange={onChange}/>
+        <input type={type} name={label} placeholder={placeholder} required={isRequired} onChange={onChange} autoFocus={autoFocus}/>
     </>
   )
 }

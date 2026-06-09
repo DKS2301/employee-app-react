@@ -75,10 +75,10 @@ main {
 
 header {
     width: 100%;
-    padding: 20px;
+    padding: 10px;
     border-bottom: 1px solid var(--theme-border);
     background-color: var(--theme-background);
-    .logo {
+    #logo {
         width: 220px;
         object-fit: cover;
     }
@@ -144,10 +144,10 @@ nav {
       flex-direction: column;
       align-items: end;
       gap: 10px;
-      min-width: max(10%, 25vh);
+      min-width: max(19%, 300px);
       background-color: var(--theme-background);
       padding: 20px 0px 20px 0px;
-
+      height: 100%;
       .kv-header {
           width: 90%;
           display: flex;
@@ -266,6 +266,10 @@ nav {
     display: flex;
     justify-content: space-between;
     align-content: center;
+    height: 82px;
+    h2{
+        font-size: 22px;
+    }
     .add-props{
         display: flex;
         flex-direction: row;
@@ -335,7 +339,7 @@ nav {
         justify-content: center;
         align-items: center;
         border-radius: 16px;
-        gap: 2.5vh;
+        gap: 1.5vh;
         h4{
             font-weight: bold;
             font-size: 2vh;
@@ -356,13 +360,14 @@ nav {
     .upload{
         height: 38vh;
         width: 55vh;
-        padding: 2vh;
+        padding: 0.5vh;
         display: flex;
         flex-direction: column;
         padding: 20px;
         font-weight: bold;
         div{
             color: var(--theme-primary);
+            justify-content: center;
             div{
                 display: flex;
                 flex-direction: row;
@@ -378,30 +383,38 @@ nav {
     .upload-box{
         border: dashed 0.5px #183072;
         border-radius: 24px;
-        height: 100vh;
+        height: 25vh;
         width: 50vh;
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
         gap: 15px;
+        padding: 20px;
         .upload-img{
             height: 2vh;
         }
         .cloud-img{
             height: 6vh;
         }
-        div{
-            gap: 1.5vh;
-            align-content: center;
-            p{
-                font-size: 1.5vh;
+        .upload-options{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            div{
+                gap: 1.2vh;
+                align-content: center;
+                p{
+                    font-size: 1.5vh;
+                }
             }
-        }
-        .or{
-            font-size: 1.5vh;
-            font-weight: lighter;
-            color: var(--theme-foreground);
+            .or{
+                font-size: 1.5vh;
+                font-weight: lighter;
+                color: var(--theme-foreground);
+            }
         }
     }
     .button-group{
@@ -417,4 +430,10 @@ nav {
 
         }
     }
+}
+
+.main-body {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--theme-muted-background);
 }

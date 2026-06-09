@@ -19,7 +19,8 @@ function useFetch(value:string) {
     // const [employeeName, setEmployeeName] = useState()
     // const [filter, setFilter] = useState('');
     const filteredEmployees= useMemo(()=>{
-        return employees.filter((employee)=>  employee.name.toLowerCase().includes(value.toLowerCase()));
+        if(value == 'all') return employees;
+        return employees.filter((employee)=>  employee.status.toLowerCase()==value);
     },[value])
 
     return filteredEmployees
@@ -28,8 +29,8 @@ function useFetch(value:string) {
 
 function EmployeeList() {
     const [employeeName,setEmployeeName] = useState('')
-    const [status, setStatus] = useState('status');
-    const filteredEmployees =  useFetch(employeeName)
+    const [status, setStatus] = useState('all');
+    const filteredEmployees =  useFetch(status)
     const [dialogOpen, setdialogOpen] = useState(false)
     const navigate = useNavigate()
 
@@ -67,9 +68,12 @@ function EmployeeList() {
                             id="status"
                             value={status}
                             onChange={(e) => {console.log(e.target.value);setStatus(e.target.value)}}
+                            className='status-filter'
                         >
-                            <option value="status">Status</option>
-                            <option value="joining-date">Joining Date</option>
+                            <option value='all'>All</option>
+                            <option value="active">Active</option>
+                            <option value="probation">Probation</option>
+                            <option value="inactive">Inactive</option>
                         </select>
                         <img src={dropdown} />
                     </div>
@@ -77,7 +81,7 @@ function EmployeeList() {
                 </TitleCard>
                 <Title />
                 <Suspense fallback={<Fallback/>} >
-                    {employees.map((employee) => (
+                    {filteredEmployees.map((employee) => (
                         <div key = {employee.id} onClick={() => navigate(`/employee/${employee.id}`)}>
                             <Row employee={employee} deleteAction={handleDelete} editAction={(e)=>handleEdit(e,employee.id)}/>
                         </div>

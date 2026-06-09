@@ -37,11 +37,26 @@ main {
         width: 50%;
         display: flex;
         flex-direction: column;
-        gap: 25px;
-
+        gap: 2vh;
+        label{
+            color: #0000004D;
+            position: absolute;
+            left: 12px;
+            top: 16px;
+        }
+        .input-group{
+            position: relative;
+        }
+        .input-group input:focus + label,
+        .input-group input:not(:placeholder-shown) + label {
+            transform: translateY(-24px) scale(0.85);
+            background-color: var(--theme-background);
+            color: var(--theme-primary);
+        }
         #logo-image {
             width: 50%;
             object-fit: cover;
         }
     }
 }
+

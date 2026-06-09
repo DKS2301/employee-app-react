@@ -4,16 +4,13 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
-    height: fit-content;
-
+    height: 44px;
     input {
         display: none;
     }
-
     div {
         display: flex;
         flex-direction: row;
-        justify-content: end;
         align-items: center;
         gap: 5px;
         width: 100%;
@@ -22,22 +19,22 @@
         border-radius: 5px;
         padding: 13px 10px 13px 10px;
         background-color: var(--theme-muted-background);
-
+        justify-content: space-between;
         p {
             color: var(--theme-muted-foreground);
-        }
-
-        img {
-            width: 18px;
-            height: 18px;
+            display: flex;
+            flex-direction: row;
+            gap: 10px;
+            margin-left: auto;
         }
     }
-}
+    .preview{
+        width: fit-content;
+        background-color: #03AEEE4D;
+        border-radius: 12px;
+        border: none;
+        padding: 5px;
+    }
 
-.main-body {
-    display: flex;
-    flex-direction: column;
-    background-color: var(--theme-muted-background);
 }
-
 
