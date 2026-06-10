@@ -26,7 +26,7 @@ function Row({employee, deleteAction, editAction} : rowProps) {
         <ul>
         <li>{employee.name}</li>
         <li>{employee.id}</li>
-        <li>{employee.joiningDate}</li>
+        <li>{employee.joining_date}</li>
         <li>{employee.role}</li>
         <li className={employee.status.toLowerCase()} id='status-row'>{employee.status}</li>
         <li>{employee.experience}</li>

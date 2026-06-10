@@ -7,6 +7,7 @@ import pen from '../../assets/images/pen1.svg'
 import './EmployeeDetails.css'
 import type { RootState } from '../../store/store'
 import { useSelector } from 'react-redux'
+import { useGetEmployeeByIdQuery } from '../../api-services/employees/employees.api'
 
 function EmployeeDetails() {
   const navigate = useNavigate()
@@ -14,7 +15,23 @@ function EmployeeDetails() {
   const employeeList = useSelector(
         (state: RootState)=> state.employee.employees
     )
-  const {name, joiningDate, role, status, experience, address} = employeeList.filter((emp)=>emp.id == id)[0]
+  const { data, isLoading, error } = useGetEmployeeByIdQuery(Number(id));
+    console.log("details data",data?.addresses[0])
+    const {
+    name,
+    joiningDate,
+    role,
+    status,
+    experience,
+    address
+    } = {
+    name: data?.name,
+    joiningDate: data?.created_at.split('T')[0],
+    role: data?.role,
+    status: data?.status,
+    experience: data?.experience,
+    address: data?.addresses[0],
+    };
   return (
     <Card>
         <TitleCard label='Employee details'>
@@ -39,7 +56,7 @@ function EmployeeDetails() {
 
                 <div className="detail-item">
                     <span className="detail-label">Status</span>
-                    <span className={`detail-value ${status.toLowerCase()}`} id='status-row'>
+                    <span className={`detail-value ${String(status).toLowerCase()}`} id='status-row'>
                     {status}
                     </span>
                 </div>
@@ -53,7 +70,7 @@ function EmployeeDetails() {
             <div className='detail-row-2'>
                 <div className="detail-item">
                     <span className="detail-label">Address</span>
-                    <span className="detail-value">{`${address?.line1}, ${address?.line2}, ${address?.city}, ${address?.country}, ${address?.postalCode}`}</span>
+                    <span className="detail-value">{address ? `${address?.line1}, ${address?.city}, ${address?.country}, ${address?.postal_code}` : 'No Address Provided'}</span>
                 </div>
                 <div className="detail-item">
                     <span className="detail-label">Employee ID</span>

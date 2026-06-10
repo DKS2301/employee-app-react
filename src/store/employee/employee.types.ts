@@ -3,7 +3,7 @@ export interface Address {
     line2: string;
     city: string,
     country: string,
-    postalCode: string
+    postal_code: string
 }
 
 export type EmployeeStatus =
@@ -15,7 +15,7 @@ export interface EmployeeRecord {
     id: string;
     name: string;
     joiningDate: string; // YYYY-MM-DD
-
+    email: string,
     role: string;
     status: EmployeeStatus;
 

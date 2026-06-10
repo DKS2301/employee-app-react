@@ -9,26 +9,27 @@ import upload from '../assets/images/upload.svg'
 import close from '../assets/images/close.svg'
 import { FileUploader } from 'react-drag-drop-files'
 import { EMPLOYEE_ACTION_TYPES, type EmployeeRecord } from '../store/employee/employee.types'
-import { addEmployee } from '../store/employee/employeeReducer'
-import { useAppDispatch } from '../store/store'
+import { useCreateEmployeeMutation } from '../api-services/employees/employees.api'
 
 const statuses = [
     { value: "Probation" },
     { value: "Active" },
-    { value: "Inctive" },
+    { value: "Inactive" },
     { value: "Terminated" },
 ]
 
 const roles = [
-    { value: "Full Stack" },
-    { value: "UI Engineer" },
-    { value: "Devops" },
+    { value: "UI" },
+    { value: "UX" },
+    { value: "DEVELOPER" },
+    { value: "HR" },
 ]
 interface employeeProps{
     employeeData?: EmployeeRecord;
+    onSubmit: React.SubmitEventHandler<HTMLFormElement>
 };
 
-function Form({employeeData}: employeeProps) {
+function Form({employeeData, onSubmit}: employeeProps) {
     // const [formData, setFormData] = useState({})
     const fileTypes = ["JPG", "PNG", "GIF"];
     const navigate = useNavigate()
@@ -38,46 +39,11 @@ function Form({employeeData}: employeeProps) {
         setFile(file);
     };
 
-    const dispatcher = useAppDispatch()
-
-    const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-
-        const formData = new FormData(e.currentTarget);
-
-        const employee: EmployeeRecord = {
-            id: formData.get("employee-id") as string,
-            name: formData.get("employee-name") as string,
-            joiningDate: formData.get("joining-date") as string,
-
-            role: formData.get("role") as string,
-            status: formData.get("status") as EmployeeRecord["status"],
-
-            experience: formData.get("experience") as string,
-
-            address: {
-                line1: formData.get("addressLine1") as string,
-                line2: formData.get("addressLine2") as string,
-                city: formData.get("city") as string,
-                country: formData.get("country") as string,
-                postalCode: formData.get("postalCode") as string,
-            }
-        };
-
-        // dispatcher({
-        //     type: EMPLOYEE_ACTION_TYPES.ADD,
-        //     payload: employee
-        // });
-        dispatcher(addEmployee(employee))
-
-        console.log(employee);
-        navigate('/employee/')
-    };
-
     const uploadFile = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         setUploadDialog(false)
     }
-        
+     
+    console.log("in form", employeeData?.role)
     return (
         <>
             {uploadDialog &&
@@ -125,6 +91,21 @@ function Form({employeeData}: employeeProps) {
             id="employee-name"
             name="employee-name"
             defaultValue={employeeData?.name || ''}
+        />
+
+        <InputGroup
+            label="Employee Email"
+            id="employee-email"
+            name="employee-email"
+            defaultValue={employeeData?.email || ''}
+        />
+
+        <InputGroup
+            label="Password"
+            id="password"
+            name="password"
+            defaultValue={''}
+            type='password'
         />
 
         <InputGroup
@@ -200,7 +181,7 @@ function Form({employeeData}: employeeProps) {
                 <input
                     name="postalCode"
                     placeholder="Postal Code"
-                    defaultValue={employeeData?.address?.postalCode || ''}
+                    defaultValue={employeeData?.address?.postal_code || ''}
                 />
             </div>
         </div>
