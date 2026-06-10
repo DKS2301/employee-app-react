@@ -1,5 +1,5 @@
 import React, { type ReactNode } from 'react'
-import Button from './Button'
+import './DialogBox.css'
 
 interface dialogProps{
     classNames: string,

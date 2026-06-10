@@ -1,143 +1,231 @@
-import React, { Suspense, useState } from 'react'
-import { useNavigate } from 'react-router'
-import add from '../../assets/images/add.svg'
-import dropdown from '../../assets/images/dropdown.svg'
-import Card from '../../components/Card'
-import Title from '../../components/Table/Title'
-import TitleCard from '../../components/TitleCard'
-import './EmployeeList.css'
-// import Row from '../../components/Table/Row'
-import { useDeleteEmployeeMutation, useGetEmployeesByFilterQuery, useGetEmployeesQuery } from '../../api-services/employees/employees.api'
-import Button from '../../components/Button'
-import Chatbox from '../../components/Chatbox'
-import DialogBox from '../../components/DialogBox'
-import Fallback from '../../components/Fallback'
-import type { EmployeeRecord } from '../../store/employee/employee.types'
+import React, { Suspense, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router';
 
-const Row = React.lazy(()=>import('../../components/Table/Row'))
+import add from '../../assets/images/add.svg';
+import dropdown from '../../assets/images/dropdown.svg';
 
-// function useFetch(value:string, employeeList: EmployeeRecord[]) {
-//     // const [employeeName, setEmployeeName] = useState()
-//     // const [filter, setFilter] = useState('');
-//     const filteredEmployees= useMemo(()=>{
-//         if(value == 'all') return employeeList;
-//         return employeeList.filter((employee)=>  employee.status.toLowerCase()==value);
-//     },[employeeList, value])
+import Card from '../../components/Card';
+import Title from '../../components/Table/Title';
+import TitleCard from '../../components/TitleCard';
+import Button from '../../components/Button';
+import Chatbox from '../../components/Chatbot/Chatbox';
+import DialogBox from '../../components/DialogBox/DialogBox';
+import Fallback from '../../components/Fallback';
 
-//     return filteredEmployees
+import './EmployeeList.css';
 
-// }
+import {
+    useDeleteEmployeeMutation,
+    useGetEmployeesByFilterQuery,
+} from '../../api-services/employees/employees.api';
+
+const Row = React.lazy(() => import('../../components/Table/Row'));
 
 function EmployeeList() {
-    // const employeeList = useSelector(
-    //     (state: RootState)=> state.employee.employees
-    // )
-    const [employeeList, setEmployeeList] = useState<EmployeeRecord[]>([]) 
+    const navigate = useNavigate();
+
     const [status, setStatus] = useState('all');
-    // const filteredEmployees =  useFetch(status, employeeList)
-    const [dialogOpen, setdialogOpen] = useState(false)
+    const [dialogOpen, setDialogOpen] = useState(false);
     const [selectedEmployeeId, setSelectedEmployeeId] = useState<number>();
-    const navigate = useNavigate()
-    const { data, isLoading, error } = useGetEmployeesQuery();
-    const { data: filteredEmployees, isLoading: isLoadingEmployee } = useGetEmployeesByFilterQuery({status:status});
 
-    console.log("employees", filteredEmployees)
-    const [deleteEmployee] = useDeleteEmployeeMutation();
-    // useEffect(() => {if(data){
-    //     // const employee = {...data, joiningDate:{data.created}}
-    //     console.log("data",data)
-    //     const employeeList: EmployeeRecord[] =
-    //         data?.map(emp => ({
-    //             id: Number(emp.id),
-    //             name: emp.name,
-    //             joiningDate: emp.joining_date.split('T')[0],
-    //             role: emp.role,
-    //             status: emp.status,
-    //             experience: emp.experience
-    //         })) ?? [];
-    //     setEmployeeList(employeeList)
-    //     }
-    // },[data])
+    const {
+        data: employees = [],
+        isLoading,
+        isFetching,
+        isError,
+        error,
+    } = useGetEmployeesByFilterQuery({ status });
 
-    function employeeById(){
-        // const { data, isLoading, error } = useGetEmployeesQuery();
-        console.log("id name",data)
-    }
+    const [
+        deleteEmployee,
+        {
+            isLoading: isDeleting,
+            isError: isDeleteError,
+            error: deleteError,
+            isSuccess: isDeleteSuccess,
+        },
+    ] = useDeleteEmployeeMutation();
 
-    // const employees = data;
-    // employees['joiningDate'] = 
+    useEffect(() => {
+        if (isError) {
+            console.error('Failed to fetch employees', error);
+        }
+    }, [isError, error]);
 
-    const handleDelete = (e: React.MouseEvent<HTMLButtonElement>, id: string) =>{
+    useEffect(() => {
+        if (isDeleteError) {
+            console.error('Failed to delete employee', deleteError);
+        }
+    }, [isDeleteError, deleteError]);
+
+    useEffect(() => {
+        if (isDeleteSuccess) {
+            setDialogOpen(false);
+        }
+    }, [isDeleteSuccess]);
+
+    const handleDelete = (
+        e: React.MouseEvent<HTMLButtonElement>,
+        id: number
+    ) => {
         e.stopPropagation();
-        setSelectedEmployeeId(Number(id))
-        setdialogOpen(true);
-    }
+        setSelectedEmployeeId(id);
+        setDialogOpen(true);
+    };
 
-    function handleEdit(e: React.MouseEvent<HTMLButtonElement>,id: string){
+    const handleEdit = (
+        e: React.MouseEvent<HTMLButtonElement>,
+        id: number
+    ) => {
         e.stopPropagation();
-        navigate(`create/${id}`)
-    }
+        navigate(`create/${id}`);
+    };
 
-    function cancelDelete(e: React.MouseEvent<HTMLButtonElement, MouseEvent>){
-        e.stopPropagation(); 
-        setdialogOpen(false)
-    }
+    const cancelDelete = (
+        e: React.MouseEvent<HTMLButtonElement>
+    ) => {
+        e.stopPropagation();
+        setDialogOpen(false);
+    };
 
-    function confirmDelete(e: React.MouseEvent<HTMLButtonElement, MouseEvent>){
-        e.stopPropagation(); 
-        deleteEmployee(selectedEmployeeId)
-        setdialogOpen(false)
-    }
+    const confirmDelete = async (
+        e: React.MouseEvent<HTMLButtonElement>
+    ) => {
+        e.stopPropagation();
+
+        if (!selectedEmployeeId) return;
+
+        try {
+            await deleteEmployee(selectedEmployeeId).unwrap();
+        } catch (err) {
+            console.error(err);
+        }
+    };
 
     return (
         <>
-            {dialogOpen &&
-            <DialogBox classNames='delete'>
-                <>
-                    <h4 >Are you sure ?</h4>
-                    <h6>Do you really want to delete employee?</h6>
-                    <div className="button-group">
-                        <Button typeName='button' className='outline' label='Cancel' onClick={(e) => cancelDelete(e)}/>
-                        <Button typeName='submit' className='primary' label='Confirm' onClick={(e) => confirmDelete(e)}/>
-                    </div>
-                </>
-            </DialogBox>
-            }
+            {dialogOpen && (
+                <DialogBox classNames="delete">
+                    <>
+                        <h4>Are you sure?</h4>
+                        <h6>Do you really want to delete employee?</h6>
+
+                        <div className="button-group">
+                            <Button
+                                typeName="button"
+                                className="outline"
+                                label="Cancel"
+                                onClick={cancelDelete}
+                            />
+
+                            <Button
+                                typeName="submit"
+                                className="primary"
+                                label={
+                                    isDeleting
+                                        ? 'Deleting...'
+                                        : 'Confirm'
+                                }
+                                disabled={isDeleting}
+                                onClick={confirmDelete}
+                            />
+                        </div>
+                    </>
+                </DialogBox>
+            )}
+
             <Card>
-                <TitleCard label='Employee List'>
-                    <label htmlFor='status'>
-                        Filter By
-                    </label>
+                <TitleCard label="Employee List">
+                    <label htmlFor="status">Filter By</label>
+
                     <div>
                         <select
                             id="status"
                             value={status}
-                            onChange={(e) => {setStatus(e.target.value)}}
-                            className='status-filter'
+                            onChange={(e) =>
+                                setStatus(e.target.value)
+                            }
+                            className="status-filter"
                         >
-                            <option value='all'>All</option>
+                            <option value="all">All</option>
                             <option value="Active">Active</option>
-                            <option value="Probation">Probation</option>
-                            <option value="Inactive">Inactive</option>
+                            <option value="Probation">
+                                Probation
+                            </option>
+                            <option value="Inactive">
+                                Inactive
+                            </option>
                         </select>
-                        <img src={dropdown} />
+
+                        <img src={dropdown} alt="" />
                     </div>
-                    <Button typeName='submit' label={<><img src={add} alt='add' />Create Employee</>} onClick={() => navigate('/employee/create')} className={''} />
+
+                    <Button
+                        typeName="submit"
+                        className=""
+                        label={
+                            <>
+                                <img src={add} alt="add" />
+                                Create Employee
+                            </>
+                        }
+                        onClick={() =>
+                            navigate('/employee/create')
+                        }
+                    />
                 </TitleCard>
+
                 <Title />
-                <Suspense fallback={<Fallback/>} >
-                    <div className='table-rows'>                     
-                        {!isLoadingEmployee ? filteredEmployees?.map((employee) => (
-                            <div key = {employee.id} onClick={() => navigate(`/employee/${employee.id}`)}>
-                                <Row employee={employee} deleteAction={(e)=>handleDelete(e, employee.id)} editAction={(e)=>handleEdit(e,employee.id)}/>
-                            </div>
-                        )): `No Employees for status ${status} exists`}
+
+                <Suspense fallback={<Fallback />}>
+                    <div className="table-rows">
+                        {isLoading || isFetching ? (
+                            <Fallback />
+                        ) : isError ? (
+                            <p>
+                                Failed to load employees.
+                            </p>
+                        ) : employees.length === 0 ? (
+                            <p>
+                                No employees found for "
+                                {status}".
+                            </p>
+                        ) : (
+                            employees.map((employee) => (
+                                <div
+                                    key={employee.id}
+                                    onClick={() =>
+                                        navigate(
+                                            `/employee/${employee.id}`
+                                        )
+                                    }
+                                    className='clickable-element'
+                                >
+                                    <Row
+                                        employee={employee}
+                                        deleteAction={(e) =>
+                                            handleDelete(
+                                                e,
+                                                employee.id
+                                            )
+                                        }
+                                        editAction={(e) =>
+                                            handleEdit(
+                                                e,
+                                                employee.id
+                                            )
+                                        }
+                                    />
+                                </div>
+                            ))
+                        )}
                     </div>
                 </Suspense>
+
                 <Chatbox />
             </Card>
         </>
-    )
+    );
 }
 
-export default EmployeeList
+export default EmployeeList;

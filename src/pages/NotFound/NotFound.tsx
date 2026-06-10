@@ -1,7 +1,9 @@
 import React from 'react';
 import './NotFound.css';
+import { useNavigate } from 'react-router';
 
 export default function NotFound() {
+  const navigate = useNavigate()
   return (
     <main className="not-found">
       <div className="not-found-content">
@@ -15,7 +17,7 @@ export default function NotFound() {
         </p>
 
         <button
-          onClick={() => window.history.back()}
+          onClick={() => navigate(-1)}
         >
           Go Back
         </button>

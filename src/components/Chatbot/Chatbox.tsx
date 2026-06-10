@@ -1,9 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react'
-import chat from '../assets/images/chat.svg'
-import send from '../assets/images/send.svg'
-import Button from './Button'
+import chat from '../../assets/images/chat.svg'
+import send  from '../../assets/images/send.svg'
+import Button from '../Button'
 import Message from './Message'
-import typing from '../assets/images/typing.svg'
+import typing from '../../assets/images/typing.svg'
+import './Chatbot.css'
 
 function Chatbox() {
   const [isOpen, setIsOpen] = useState(false)

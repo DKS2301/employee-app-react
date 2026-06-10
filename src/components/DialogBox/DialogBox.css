@@ -1,0 +1,113 @@
+.dialog-box{
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    background-color: var(--theme-shadow);
+    justify-content: center;
+    align-items: center;
+    gap: 2vh;
+    background-color: #0000004D ;
+    z-index: 1;
+    .dialog-contents{
+        display: flex;
+        flex-direction: column;
+        background-color: var(--theme-background);
+        justify-content: center;
+        align-items: center;
+        border-radius: 16px;
+        gap: 1.5vh;
+        h4{
+            font-weight: bold;
+            font-size: 2vh;
+        }
+        h5{
+            font-size: 1.75vh;
+            justify-content: flex-start;
+        }
+        h6{
+            font-size: 1.5vh;
+        }
+    }
+    .delete{
+        height: 20vh;
+        width: 40vh;
+        padding: 5vh;
+    }
+    .upload{
+        height: 38vh;
+        width: 55vh;
+        padding: 0.5vh;
+        display: flex;
+        flex-direction: column;
+        padding: 20px;
+        font-weight: bold;
+        div{
+            color: var(--theme-primary);
+            justify-content: center;
+            div{
+                display: flex;
+                flex-direction: row;
+            }
+        }
+        .title{
+            display: flex;
+            flex-direction: row;
+            color: var(--theme-foreground);
+            gap: 35vh;
+        }
+    }
+    .upload-box{
+        border: dashed 0.5px #183072;
+        border-radius: 24px;
+        height: 25vh;
+        width: 50vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 15px;
+        padding: 20px;
+        .upload-img{
+            height: 2vh;
+        }
+        .cloud-img{
+            height: 6vh;
+        }
+        .upload-options{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            div{
+                gap: 1.2vh;
+                align-content: center;
+                p{
+                    font-size: 1.5vh;
+                }
+            }
+            .or{
+                font-size: 1.5vh;
+                font-weight: lighter;
+                color: var(--theme-foreground);
+            }
+        }
+    }
+    .button-group{
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        gap: 1vh;
+        button{
+            width: 100vh;
+        }
+        .outline{
+            color: #63667A;
+
+        }
+    }
+}

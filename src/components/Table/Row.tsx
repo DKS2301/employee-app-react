@@ -1,10 +1,7 @@
-import React, { useState } from 'react'
 import bin from '../../assets/images/bin.svg'
 import pen from '../../assets/images/pen.svg'
 import Button from '../../components/Button'
-import { useNavigate } from 'react-router';
-import DialogBox from '../DialogBox';
-
+import './Table.css'
 interface Employee{
     id: string;
     name: string;

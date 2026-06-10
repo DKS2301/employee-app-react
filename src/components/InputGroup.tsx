@@ -11,10 +11,11 @@ interface inputProps{
     name?: string,
     variant?: "input" | "select";
     options?: Option[];
-    defaultValue: string
+    defaultValue: string,
+    disabled?: boolean
 }
 
-function InputGroup({label, id, type='text', variant = "input", options = [], name ='', defaultValue =''} : inputProps) {
+function InputGroup({label, id, type='text', variant = "input", options = [], name ='', defaultValue ='', disabled=false} : inputProps) {
   return (    
     <div className="input-group">
         <label htmlFor={id}>{label}</label>
@@ -25,6 +26,7 @@ function InputGroup({label, id, type='text', variant = "input", options = [], na
                 type={type}
                 name={name}
                 defaultValue={defaultValue}
+                disabled={disabled}
                 />
             ) : (
                 <select

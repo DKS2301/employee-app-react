@@ -46,6 +46,8 @@ main {
         }
         .input-group{
             position: relative;
+            caret-color: var(--theme-primary);
+            caret-shape:bar;
         }
         .input-group input:focus + label,
         .input-group input:not(:placeholder-shown) + label {

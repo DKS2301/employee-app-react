@@ -1,218 +1,264 @@
-import React, { useRef, useState } from 'react'
-import paperclip from '../assets/images/paperclip.svg'
-import InputGroup from './InputGroup'
-import Button from './Button'
-import { useNavigate } from 'react-router'
-import DialogBox from './DialogBox'
-import cloud from '../assets/images/cloud.svg'
-import upload from '../assets/images/upload.svg'
-import close from '../assets/images/close.svg'
-import { FileUploader } from 'react-drag-drop-files'
-import { EMPLOYEE_ACTION_TYPES, type EmployeeRecord } from '../store/employee/employee.types'
-import { useCreateEmployeeMutation } from '../api-services/employees/employees.api'
+import { useState } from "react";
+import { useNavigate } from "react-router";
+import { FileUploader } from "react-drag-drop-files";
 
-const statuses = [
+import Button from "./Button";
+import DialogBox from "./DialogBox/DialogBox";
+import InputGroup from "./InputGroup";
+
+import cloud from "../assets/images/cloud.svg";
+import close from "../assets/images/close.svg";
+import paperclip from "../assets/images/paperclip.svg";
+import upload from "../assets/images/upload.svg";
+
+import type { EmployeeRecord } from "../store/employee/employee.types";
+
+interface FormProps {
+    employeeData?: EmployeeRecord;
+    onSubmit: React.FormEventHandler<HTMLFormElement>;
+}
+
+const FILE_TYPES = ["JPG", "PNG", "GIF"];
+
+const STATUS_OPTIONS = [
     { value: "Probation" },
     { value: "Active" },
     { value: "Inactive" },
     { value: "Terminated" },
-]
+];
 
-const roles = [
+const ROLE_OPTIONS = [
     { value: "UI" },
     { value: "UX" },
     { value: "DEVELOPER" },
     { value: "HR" },
-]
-interface employeeProps{
-    employeeData?: EmployeeRecord;
-    onSubmit: React.SubmitEventHandler<HTMLFormElement>
-};
+];
 
-function Form({employeeData, onSubmit}: employeeProps) {
-    // const [formData, setFormData] = useState({})
-    const fileTypes = ["JPG", "PNG", "GIF"];
-    const navigate = useNavigate()
-    const [uploadDialog, setUploadDialog] = useState(false)
+function Form({ employeeData, onSubmit }: FormProps) {
+    const navigate = useNavigate();
+
+    const [uploadDialog, setUploadDialog] = useState(false);
     const [file, setFile] = useState<File>();
-    const handleChange = (file: React.SetStateAction<File | undefined>) => {
-        setFile(file);
+
+    const handleFileChange = (selectedFile: File) => {
+        setFile(selectedFile);
     };
 
-    const uploadFile = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-        setUploadDialog(false)
-    }
-     
-    console.log("in form", employeeData?.role)
+    const closeUploadDialog = () => {
+        setUploadDialog(false);
+    };
+
+    const removeFile = (
+        e?: React.MouseEvent<HTMLImageElement | HTMLButtonElement>
+    ) => {
+        e?.stopPropagation();
+        setFile(undefined);
+    };
+
     return (
         <>
-            {uploadDialog &&
-            <DialogBox classNames='upload'>
-            <>
-                <div className='title'>
-                    <h5>Upload Proof</h5>
-                    <img src={close} alt="close"onClick={()=> setUploadDialog(false)}/>
-                </div>
-                <FileUploader handleChange={handleChange} name="file" types={fileTypes}>
-                    <div className='upload-box'>
-                        <div>
-                            <img src={cloud} alt="cloud" className='cloud-img'/>
+            {uploadDialog && (
+                <DialogBox classNames="upload">
+                    <>
+                        <div className="title">
+                            <h5>Upload Proof</h5>
+                            <img
+                                src={close}
+                                alt="close"
+                                onClick={closeUploadDialog}
+                            />
                         </div>
-                        {!file  ? (
-                                <div className='upload-options'>
-                                    <p>Drag & drop excel file here</p> 
-                                    <div className='or'>Or</div>
-                                    <div>
-                                        <img src = {upload} alt='upload' className='upload-img'/>
-                                        <p>Upload file</p>
+
+                        <FileUploader
+                            handleChange={handleFileChange}
+                            name="file"
+                            types={FILE_TYPES}
+                        >
+                            <div className="upload-box">
+                                <img
+                                    src={cloud}
+                                    alt="cloud"
+                                    className="cloud-img"
+                                />
+
+                                {!file ? (
+                                    <div className="upload-options">
+                                        <p>Drag & drop file here</p>
+
+                                        <div className="or">Or</div>
+
+                                        <div>
+                                            <img
+                                                src={upload}
+                                                alt="upload"
+                                                className="upload-img"
+                                            />
+                                            <p>Upload file</p>
+                                        </div>
                                     </div>
-                                </div>
-                        ) :
-                        (   
-                            <>
-                            <div>
-                                <p>{file.name}</p>
+                                ) : (
+                                    <p>{file.name}</p>
+                                )}
                             </div>
-                            </>
-                        )}
+                        </FileUploader>
+
+                        <div className="button-group">
+                            <Button
+                                typeName="button"
+                                className="outline"
+                                label="Cancel"
+                                onClick={removeFile}
+                            />
+
+                            <Button
+                                typeName="button"
+                                className="primary"
+                                label="Upload"
+                                onClick={closeUploadDialog}
+                            />
+                        </div>
+                    </>
+                </DialogBox>
+            )}
+
+            <form className="card" onSubmit={onSubmit}>
+                <InputGroup
+                    label="Employee Name"
+                    id="employee-name"
+                    name="employee-name"
+                    defaultValue={employeeData?.name ?? ""}
+                />
+
+                <InputGroup
+                    label="Employee Email"
+                    id="employee-email"
+                    name="employee-email"
+                    defaultValue={employeeData?.email ?? ""}
+                />
+
+                <InputGroup
+                    label="Employee ID"
+                    id="employee-id"
+                    name="employee-id"
+                    defaultValue={employeeData?.id ?? ""}
+                    disabled={true}
+                />
+
+                <InputGroup
+                    label="Joining Date"
+                    id="joining-date"
+                    name="joining-date"
+                    type="date"
+                    defaultValue={employeeData?.joiningDate ?? ""}
+                />
+
+                <InputGroup
+                    label="Role"
+                    id="role"
+                    name="role"
+                    variant="select"
+                    options={ROLE_OPTIONS}
+                    defaultValue={employeeData?.role ?? ""}
+                />
+
+                <InputGroup
+                    label="Status"
+                    id="status"
+                    name="status"
+                    variant="select"
+                    options={STATUS_OPTIONS}
+                    defaultValue={employeeData?.status ?? ""}
+                />
+
+                <InputGroup
+                    label="Experience"
+                    id="experience"
+                    name="experience"
+                    defaultValue={employeeData?.experience ?? ""}
+                />
+
+                <div className="input-group">
+                    <label htmlFor="address">Address</label>
+
+                    <input
+                        id="address"
+                        name="address"
+                        placeholder="Address Line 1"
+                        defaultValue={employeeData?.address?.line1 ?? ""}
+                    />
+
+                    <div className="address-group">
+
+                        <input
+                            name="city"
+                            placeholder="City"
+                            defaultValue={employeeData?.address?.city ?? ""}
+                        />
+
+                        <input
+                            name="country"
+                            placeholder="Country"
+                            defaultValue={employeeData?.address?.country ?? ""}
+                        />
+
+                        <input
+                            type="number"
+                            name="postalCode"
+                            placeholder="Postal Code"
+                            defaultValue={
+                                employeeData?.address?.postal_code ?? ""
+                            }
+                        />
                     </div>
-                </FileUploader>
-                <div className="button-group">  
-                    <Button typeName='button' className='outline' label='Cancel' onClick={(e)=>{ setFile(undefined)}}/>
-                    <Button typeName='submit' className='primary' label='Upload' onClick={(e) => {uploadFile(e)}}/>
                 </div>
-            </>
-            </DialogBox>
-        }
-        <form className="card" onSubmit={(e)=>onSubmit(e)}>
 
-        <InputGroup
-            label="Employee Name"
-            id="employee-name"
-            name="employee-name"
-            defaultValue={employeeData?.name || ''}
-        />
+                <label
+                    className="file-upload"
+                    onClick={() => setUploadDialog(true)}
+                >
+                    <p>Upload ID Proof</p>
 
-        <InputGroup
-            label="Employee Email"
-            id="employee-email"
-            name="employee-email"
-            defaultValue={employeeData?.email || ''}
-        />
+                    <div>
+                        {file && (
+                            <div className="preview">
+                                {file.name}
 
-        <InputGroup
-            label="Password"
-            id="password"
-            name="password"
-            defaultValue={''}
-            type='password'
-        />
+                                <img
+                                    src={close}
+                                    alt="remove file"
+                                    className="upload-btn"
+                                    onClick={removeFile}
+                                />
+                            </div>
+                        )}
 
-        <InputGroup
-            label="Employee ID"
-            id="employee-id"
-            name="employee-id"
-            defaultValue={employeeData?.id || ''}
-        />
+                        <p>
+                            <img
+                                src={paperclip}
+                                alt="attach file"
+                            />
+                            Attach files
+                        </p>
+                    </div>
+                </label>
 
-        <InputGroup
-            label="Joining Date"
-            id="joining-date"
-            type="date"
-            name="joining-date"
-            defaultValue={employeeData?.joiningDate  || ''}
-        />
+                <div className="button-group">
+                    <Button
+                        typeName="submit"
+                        className="primary"
+                        label={employeeData ? "Update" : "Create"}
+                    />
 
-        <InputGroup
-            label="Role"
-            id="role"
-            variant="select"
-            name='role'
-            defaultValue={employeeData?.role || ''}
-            options={roles}
-        />
-
-        <InputGroup
-            label="Status"
-            id="status"
-            variant="select"
-            name='status'
-            defaultValue={employeeData?.status  || ''}
-            options={statuses}
-        />
-
-        <InputGroup
-            label="Experience"
-            id="experience"
-            name="experience"
-            defaultValue={employeeData?.experience || ''}
-        />
-
-        <div className="input-group">
-            <label htmlFor="address">Address</label>
-
-            <input
-            id="address"
-            placeholder="Address Line 1"
-            name='address'
-            defaultValue={employeeData?.address?.line1 || ''}
-            />
-
-            <div className="address-group">
-
-                <input
-                    name="addressLine2"
-                    placeholder="Address Line 2"
-                    defaultValue={employeeData?.address?.line2 || ''}
-                />
-
-                <input
-                    name="city"
-                    placeholder="City"
-                    defaultValue={employeeData?.address?.city || ''}
-                />
-
-                <input
-                    name="country"
-                    placeholder="Country"
-                    defaultValue={employeeData?.address?.country || ''}
-                />
-
-                <input
-                    name="postalCode"
-                    placeholder="Postal Code"
-                    defaultValue={employeeData?.address?.postal_code || ''}
-                />
-            </div>
-        </div>
-
-        <label
-            className="file-upload"
-            onClick={()=> setUploadDialog(true)}
-        >
-            <p>Upload ID Proof</p>
-
-            <div>
-                {file && 
-                <div className='preview'>{file.name} <img className='upload-btn' src={close} alt='close' onClick={(e) => { e.stopPropagation();setFile(undefined)}}/></div>
-                }
-                <p>
-                    <img
-                        src={paperclip}
-                        alt="file upload icon"
-                    />Attach files
-                </p>
-            </div>
-        </label>
-
-        <div className="button-group">
-            <Button typeName='submit' className='primary' label='Create'/>
-            <Button typeName='button' className='outline' label='Cancel' onClick={()=> navigate(-1)}/>
-        </div>
-
+                    <Button
+                        typeName="button"
+                        className="outline"
+                        label="Cancel"
+                        onClick={() => navigate(-1)}
+                    />
+                </div>
             </form>
         </>
-  )
+    );
 }
 
-export default Form
+export default Form;
