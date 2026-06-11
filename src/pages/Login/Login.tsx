@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
-import Input from '../../components/Input'
-import Button from '../../components/Button'
+import Input from '@components/Input'
+import Button from '@components/Button'
 import './Login.css'
 import { useNavigate } from 'react-router'
-import { useLoginMutation } from '../../api-services/auth/login.api'
+import { useLoginMutation } from '@api-services/auth/login.api'
 
 
 function Login() {

@@ -6,10 +6,10 @@ import Button from "./Button";
 import DialogBox from "./DialogBox/DialogBox";
 import InputGroup from "./InputGroup";
 
-import cloud from "../assets/images/cloud.svg";
-import close from "../assets/images/close.svg";
-import paperclip from "../assets/images/paperclip.svg";
-import upload from "../assets/images/upload.svg";
+import cloud from "@images/cloud.svg";
+import close from "@images/close.svg";
+import paperclip from "@images/paperclip.svg";
+import upload from "@images/upload.svg";
 
 import type { EmployeeResponse } from "@/api-services/employees/types";
 

@@ -1,6 +1,6 @@
 import React from 'react'
 import '../App.css'
-import users from '../assets/images/users.svg'
+import users from '@images/users.svg'
 
 function Navbar() {
   return (

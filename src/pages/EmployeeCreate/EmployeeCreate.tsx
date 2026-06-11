@@ -1,6 +1,6 @@
-import Card from "../../components/Card";
-import Form from "../../components/Form";
-import TitleCard from "../../components/TitleCard";
+import Card from "@components/Card";
+import Form from "@components/Form";
+import TitleCard from "@components/TitleCard";
 import "./EmployeeCreate.css";
 
 import { useNavigate, useParams } from "react-router";

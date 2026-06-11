@@ -1,14 +1,13 @@
 import { useNavigate, useParams } from "react-router";
 
-import Button from "../../components/Button";
-import Card from "../../components/Card";
-import TitleCard from "../../components/TitleCard";
-
-import pen from "../../assets/images/pen1.svg";
+import Button from "@components/Button";
+import Card from "@components/Card";
+import TitleCard from "@components/TitleCard";
+import pen from "@images/pen1.svg";
 
 import "./EmployeeDetails.css";
 
-import { useGetEmployeeByIdQuery } from "../../api-services/employees/employees.api";
+import { useGetEmployeeByIdQuery } from "@api-services/employees/employees.api";
 
 function EmployeeDetails() {
     const navigate = useNavigate();
