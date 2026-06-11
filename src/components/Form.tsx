@@ -169,14 +169,7 @@ function Form({ employeeData, onSubmit }: FormProps) {
                     options={STATUS_OPTIONS}
                     defaultValue={employeeData?.status ?? ""}
                 />
-
-                <InputGroup
-                    label="Experience"
-                    id="experience"
-                    name="experience"
-                    defaultValue={employeeData?.experience ?? ""}
-                />
-
+                
                 <div className="input-group">
                     <label htmlFor="address">Address</label>
 
@@ -211,6 +204,14 @@ function Form({ employeeData, onSubmit }: FormProps) {
                         />
                     </div>
                 </div>
+
+                <InputGroup
+                    label="Experience"
+                    id="experience"
+                    name="experience"
+                    defaultValue={employeeData?.experience ?? ""}
+                />
+
 
                 <label
                     className="file-upload"

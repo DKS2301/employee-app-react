@@ -1,3 +1,11 @@
+.table-rows{
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+    gap: 2vh;
+    scrollbar-width: none;
+}
+
 .error{
     color: var(--theme-error);
 }
