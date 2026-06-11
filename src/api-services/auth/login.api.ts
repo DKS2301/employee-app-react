@@ -1,5 +1,3 @@
-import { createApi } from "@reduxjs/toolkit/query";
-import { fetchBaseQuery } from "@reduxjs/toolkit/query";
 import employeeBaseApi from "../employees/employees.api";
 
 export const loginApi = employeeBaseApi.injectEndpoints({

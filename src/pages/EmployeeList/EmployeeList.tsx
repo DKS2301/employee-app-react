@@ -1,16 +1,17 @@
 import React, { Suspense, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 
-import add from '../../assets/images/add.svg';
-import dropdown from '../../assets/images/dropdown.svg';
+import add from '@images/add.svg';
+import dropdown from '@images/dropdown.svg';
 
-import Card from '../../components/Card';
-import Title from '../../components/Table/Title';
-import TitleCard from '../../components/TitleCard';
-import Button from '../../components/Button';
-import Chatbox from '../../components/Chatbot/Chatbox';
-import DialogBox from '../../components/DialogBox/DialogBox';
-import Fallback from '../../components/Fallback';
+import Card from '@components/Card';
+import Title from '@components/Table/Title';
+import TitleCard from '@components/TitleCard';
+import Button from '@components/Button';
+import Chatbox from '@components/Chatbot/Chatbox';
+import DialogBox from '@components/DialogBox/DialogBox';
+import Fallback from '@components/Fallback';
+import Row from '@components/Table/Row'
 
 import './EmployeeList.css';
 
@@ -19,7 +20,7 @@ import {
     useLazyGetEmployeesByFilterQuery,
 } from '../../api-services/employees/employees.api';
 
-const Row = React.lazy(() => import('../../components/Table/Row'));
+// const Row = React.lazy(() => import('../../components/Table/Row'));
 
 function EmployeeList() {
     const navigate = useNavigate();
@@ -122,6 +123,7 @@ function EmployeeList() {
                                 typeName="button"
                                 className="outline"
                                 label="Cancel"
+                                testId = "delete-cancel"
                                 onClick={cancelDelete}
                             />
 
@@ -133,6 +135,7 @@ function EmployeeList() {
                                         ? 'Deleting...'
                                         : 'Confirm'
                                 }
+                                testId = "delete-confirm"
                                 disabled={isDeleting}
                                 onClick={confirmDelete}
                             />
@@ -153,6 +156,7 @@ function EmployeeList() {
                                 setStatus(e.target.value)
                             }
                             className="status-filter"
+                            data-testid="status-filter"
                         >
                             <option value="all">All</option>
                             <option value="Active">Active</option>
@@ -170,6 +174,7 @@ function EmployeeList() {
                     <Button
                         typeName="submit"
                         className=""
+                        testId='create-btn'
                         label={
                             <>
                                 <img src={add} alt="add" />
@@ -184,7 +189,7 @@ function EmployeeList() {
 
                 <Title />
 
-                <Suspense fallback={<Fallback />}>
+                {/* <Suspense fallback={<Fallback />}> */}
                     <div className="table-rows">
                         {isLoading || isFetching ? (
                             <Fallback />
@@ -227,7 +232,7 @@ function EmployeeList() {
                             ))
                         )}
                     </div>
-                </Suspense>
+                {/* </Suspense> */}
 
                 <Chatbox />
             </Card>

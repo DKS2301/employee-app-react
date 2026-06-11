@@ -20,20 +20,20 @@ function EmployeeCreate() {
   const [updateEmployee, {isLoading: isUpdating}] = useUpdateEmployeeMutation();
   const [updateEmployeeAddress] = useUpdateEmployeeAddressMutation();
 
-  const { data } = useGetEmployeeByIdQuery(Number(id), {
+  const { data: employeeDetails } = useGetEmployeeByIdQuery(Number(id), {
     skip: !id,
   });
 
-  const employee = data
+  const employee = employeeDetails
     ? {
-        id: Number(data.id),
-        name: data.name,
-        joiningDate: data.joining_date,
-        email: data.email,
-        role: data.role,
-        status: data.status,
-        experience: data.experience,
-        address: data.addresses?.[0],
+        id: employeeDetails.id,
+        name: employeeDetails.name,
+        joiningDate: employeeDetails.joining_date,
+        email: employeeDetails.email,
+        role: employeeDetails.role,
+        status: employeeDetails.status,
+        experience: employeeDetails.experience,
+        address: employeeDetails.addresses?.[0],
       }
     : undefined;
 

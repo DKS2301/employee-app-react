@@ -1,9 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react'
-import chat from '../../assets/images/chat.svg'
-import send  from '../../assets/images/send.svg'
-import Button from '../Button'
+import chat from '@images/chat.svg'
+import send  from '@images/send.svg'
+import Button from '@components/Button'
 import Message from './Message'
-import typing from '../../assets/images/typing.svg'
+import typing from '@images/typing.svg'
 import './Chatbot.css'
 
 function Chatbox() {

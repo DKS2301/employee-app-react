@@ -58,6 +58,7 @@ exports[`Login Page > match snapshot 1`] = `
         </div>
         <button
           class="primary"
+          data-testid=""
           id="login"
           itemtype="submit"
         >

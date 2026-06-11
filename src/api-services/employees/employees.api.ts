@@ -1,6 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import type { EmployeeRecord } from "../../store/employee/employee.types";
-import type { EmployeePayload } from "../../pages/EmployeeCreate/EmployeeCreate";
+import type { AddressResponse, CreateEmployeePayload, EmployeeResponse, EmployeeSearchPayload, UpdateAddressPayload, UpdateEmployeePayload } from "./types";
 
 const employeeBaseApi = createApi({
     reducerPath: "employeeApi",
@@ -19,14 +18,14 @@ const employeeBaseApi = createApi({
     refetchOnMountOrArgChange: true,
     refetchOnReconnect: true,
     endpoints: (builder) => ({	
-        getEmployees: builder.query<object[], void>({
+        getEmployees: builder.query<EmployeeResponse[], void>({
             query: () => 'employee',
             providesTags: ['Employees']
         }),
-        getEmployeeById: builder.query<ResponseType, number>({
+        getEmployeeById: builder.query<EmployeeResponse, number>({
             query: (id) => `employee/${id}`
         }),
-        getEmployeesByFilter: builder.query<ResponseType, EmployeePayload>({
+        getEmployeesByFilter: builder.query<EmployeeResponse, EmployeeSearchPayload>({
             query: (params) => {
                 return {
                     url: 'employee/search',
@@ -35,7 +34,7 @@ const employeeBaseApi = createApi({
             },
             providesTags: ['Employees']
         }),
-        createEmployee: builder.mutation<EmployeeResponse, EmployeePayload>({
+        createEmployee: builder.mutation<EmployeeResponse, CreateEmployeePayload>({
             query: (payload) => {
                 return {
                     url: 'employee',
@@ -45,7 +44,7 @@ const employeeBaseApi = createApi({
             },
             invalidatesTags: ['Employees']
         }),
-        updateEmployeeAddress: builder.mutation<AddressResponse, AddressPayload>({
+        updateEmployeeAddress: builder.mutation<AddressResponse, UpdateAddressPayload>({
             query: ({id, address_id, ...payload}) => {
                 return {
                     url: `employee/${id}/addresses/${address_id}`,
@@ -55,7 +54,7 @@ const employeeBaseApi = createApi({
             },
             invalidatesTags: ['Employees']
         }),
-        updateEmployee: builder.mutation<ResponseType, RequestType>({
+        updateEmployee: builder.mutation<EmployeeResponse, UpdateEmployeePayload>({
             query: ({id, ...payload}) => {
                 console.log("update payload", payload)
                 return {
@@ -66,7 +65,7 @@ const employeeBaseApi = createApi({
             },
             invalidatesTags: ['Employees']
         }),
-        deleteEmployee: builder.mutation<EmployeeResponse, number>({
+        deleteEmployee: builder.mutation<ResponseType, number>({
             query: (id) => {
                 return {
                     url: `employee/${id}`,

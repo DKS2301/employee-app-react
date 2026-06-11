@@ -25,4 +25,4 @@ export type AppDispatch = typeof store.dispatch
 export type AppStore = typeof store
 
 export const useAppDispatch = () => useDispatch<AppDispatch>()
-export const useAppSelector = useSelector<RootState, any>
+export const useAppSelector = useSelector<RootState>

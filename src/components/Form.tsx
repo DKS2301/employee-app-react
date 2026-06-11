@@ -11,10 +11,10 @@ import close from "../assets/images/close.svg";
 import paperclip from "../assets/images/paperclip.svg";
 import upload from "../assets/images/upload.svg";
 
-import type { EmployeeRecord } from "../store/employee/employee.types";
+import type { EmployeeResponse } from "@/api-services/employees/types";
 
 interface FormProps {
-    employeeData?: EmployeeRecord;
+    employeeData?: EmployeeResponse;
     onSubmit: React.FormEventHandler<HTMLFormElement>;
 }
 

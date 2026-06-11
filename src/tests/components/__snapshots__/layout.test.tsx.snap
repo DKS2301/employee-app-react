@@ -1,0 +1,34 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Layout Component > match snapshot 1`] = `
+<div>
+  <div
+    class="main-body"
+  >
+    <header>
+      <img
+        alt="KeyValue logo"
+        id="logo"
+        src="/src/assets/images/logo.png"
+      />
+    </header>
+    <main>
+      <nav>
+        <div
+          class="kv-header"
+        >
+          <div>
+            <img
+              alt="Employee list icon"
+              src="/src/assets/images/users.svg"
+            />
+          </div>
+          <h3>
+            Employee list
+          </h3>
+        </div>
+      </nav>
+    </main>
+  </div>
+</div>
+`;

@@ -1,6 +1,6 @@
-import bin from '../../assets/images/bin.svg'
-import pen from '../../assets/images/pen.svg'
-import Button from '../../components/Button'
+import bin from '@images/bin.svg'
+import pen from '@images/pen.svg'
+import Button from '@components/Button'
 import './Table.css'
 interface Employee{
     id: string;
@@ -19,7 +19,7 @@ interface rowProps{
 
 function Row({employee, deleteAction, editAction} : rowProps) {
   return (
-    <div className="table-row" key={employee.id}>
+    <div className="table-row" key={employee.id} data-testid={`employee-row-${employee.id}`}>
         <ul>
         <li>{employee.name}</li>
         <li>{employee.id}</li>
@@ -28,8 +28,8 @@ function Row({employee, deleteAction, editAction} : rowProps) {
         <li className={employee.status.toLowerCase()} id='status-row'>{employee.status}</li>
         <li>{employee.experience}</li>
         <li>
-            <Button className='actions' label = {<img src={bin}/>} onClick={(e) => {deleteAction(e)}}/> 
-            <Button className='actions' label = {<img src={pen}/>} onClick={editAction}/>
+            <Button className='actions' testId='delete-btn' label = {<img src={bin}/>} onClick={(e) => {deleteAction(e)}}/> 
+            <Button className='actions' testId='edit-btn' label = {<img src={pen}/>} onClick={editAction}/>
         </li>
         </ul>
     </div>  

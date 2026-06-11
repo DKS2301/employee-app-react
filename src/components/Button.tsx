@@ -6,13 +6,14 @@ interface buttonProps{
   label: ReactNode,
   onClick?:  React.MouseEventHandler<HTMLButtonElement>,
   disabled?: boolean,
-  id?: string
+  id?: string,
+  testId?: string
 }
 
-function Button({typeName="text", className, label, onClick=()=>{}, disabled=false, id = ''}: buttonProps) {
+function Button({typeName="text", className, label, onClick=()=>{}, disabled=false, id = '', testId=''}: buttonProps) {
   return (
     <>
-        <button itemType={typeName} className={className} onClick={onClick} disabled={disabled} id = {id}>{label}</button>
+        <button itemType={typeName} className={className} onClick={onClick} disabled={disabled} id = {id} data-testid={testId}>{label}</button>
     </>
   )
 }

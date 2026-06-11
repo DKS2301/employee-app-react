@@ -12,7 +12,14 @@ interface inputProps{
 function Input( {type, label, placeholder, isRequired, onChange, autoFocus=false, id =''}: inputProps) {
   return (
     <>
-        <input type={type} name={label} placeholder={placeholder} required={isRequired} onChange={onChange} autoFocus={autoFocus} id= {id}/>
+        <input 
+        type={type}
+        name={label}
+        placeholder={placeholder}
+        required={isRequired}
+        onChange={onChange}
+        autoFocus={autoFocus}
+        id= {id}/>
     </>
   )
 }

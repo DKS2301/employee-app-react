@@ -1,0 +1,118 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Employee List Page > match snapshot 1`] = `
+<div>
+  <div
+    class="contents"
+  >
+    <div
+      class="card title-container"
+    >
+      <h2>
+        Employee List
+      </h2>
+      <div
+        class="add-props"
+      >
+        <label
+          for="status"
+        >
+          Filter By
+        </label>
+        <div>
+          <select
+            class="status-filter"
+            data-testid="status-filter"
+            id="status"
+          >
+            <option
+              value="all"
+            >
+              All
+            </option>
+            <option
+              value="Active"
+            >
+              Active
+            </option>
+            <option
+              value="Probation"
+            >
+              Probation
+            </option>
+            <option
+              value="Inactive"
+            >
+              Inactive
+            </option>
+          </select>
+          <img
+            alt=""
+            src="data:image/svg+xml,%3csvg%20width='7'%20height='4'%20viewBox='0%200%207%204'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cpath%20d='M3.36731%203.74202C3.33915%203.77427%203.30442%203.80013%203.26543%203.81785C3.22645%203.83556%203.18413%203.84473%203.14131%203.84473C3.09849%203.84473%203.05617%203.83556%203.01719%203.81785C2.97821%203.80013%202.94347%203.77427%202.91531%203.74202L0.076313%200.500018C0.0375657%200.456701%200.0122347%200.403062%200.0033989%200.345619C-0.0054369%200.288177%200.0026021%200.229404%200.0265398%200.176445C0.0504775%200.123485%200.089283%200.0786188%200.13824%200.0472987C0.187197%200.0159786%200.244196%20-0.000447273%200.302313%201.81198e-05L5.98031%201.81198e-05C6.03843%20-0.000447273%206.09543%200.0159786%206.14439%200.0472987C6.19334%200.0786188%206.23215%200.123485%206.25609%200.176445C6.28002%200.229404%206.28806%200.288177%206.27923%200.345619C6.27039%200.403062%206.24506%200.456701%206.20631%200.500018L3.36731%203.74202Z'%20fill='black'/%3e%3c/svg%3e"
+          />
+        </div>
+        <button
+          class=""
+          data-testid="create-btn"
+          id=""
+          itemtype="submit"
+        >
+          <img
+            alt="add"
+            src="data:image/svg+xml,%3csvg%20width='24'%20height='24'%20viewBox='0%200%2024%2024'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cpath%20d='M5%2012H19'%20stroke='white'%20stroke-width='2'%20stroke-linecap='round'%20stroke-linejoin='round'/%3e%3cpath%20d='M12%205V19'%20stroke='white'%20stroke-width='2'%20stroke-linecap='round'%20stroke-linejoin='round'/%3e%3c/svg%3e"
+          />
+          Create Employee
+        </button>
+      </div>
+    </div>
+    <div
+      class="table-title"
+    >
+      <ul
+        class="list-title"
+      >
+        <li>
+          Employee Name
+        </li>
+        <li>
+          Employee ID
+        </li>
+        <li>
+          Joining Date
+        </li>
+        <li>
+          Role
+        </li>
+        <li>
+          Status
+        </li>
+        <li>
+          Experience
+        </li>
+        <li>
+          Action
+        </li>
+      </ul>
+    </div>
+    <div
+      class="table-rows"
+    >
+      <p>
+        No employees found for "
+        all
+        ".
+      </p>
+    </div>
+    <div>
+      <div
+        class="chatbox closed"
+      >
+        <img
+          alt="chat"
+          src="data:image/svg+xml,%3csvg%20width='34'%20height='34'%20viewBox='0%200%2034%2034'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cpath%20d='M4.23888%2023.1511C4.44719%2023.6766%204.49356%2024.2524%204.37205%2024.8044L2.8633%2029.4652C2.81468%2029.7016%202.82725%2029.9465%202.89981%2030.1766C2.97237%2030.4067%203.10252%2030.6145%203.27791%2030.7803C3.4533%2030.946%203.66812%2031.0642%203.902%2031.1236C4.13587%2031.1831%204.38106%2031.1818%204.6143%2031.1199L9.44938%2029.7061C9.97031%2029.6027%2010.5098%2029.6479%2011.0063%2029.8364C14.0314%2031.2491%2017.4583%2031.548%2020.6823%2030.6803C23.9064%2029.8126%2026.7203%2027.8341%2028.6278%2025.0939C30.5352%2022.3537%2031.4136%2019.0278%2031.1078%2015.7031C30.802%2012.3784%2029.3319%209.26847%2026.9566%206.92208C24.5814%204.5757%2021.4538%203.14361%2018.1256%202.87849C14.7974%202.61338%2011.4825%203.53226%208.76576%205.47304C6.04903%207.41381%204.10505%2010.2517%203.27681%2013.4861C2.44858%2016.7205%202.7893%2020.1435%204.23888%2023.1511Z'%20stroke='white'%20stroke-width='2.83333'%20stroke-linecap='round'%20stroke-linejoin='round'/%3e%3cpath%20d='M12.8774%2012.7498C13.2105%2011.803%2013.8679%2011.0046%2014.7332%2010.4961C15.5985%209.98756%2016.6159%209.80166%2017.6051%209.97134C18.5943%2010.141%2019.4916%2010.6553%2020.138%2011.4232C20.7843%2012.191%2021.1381%2013.1628%2021.1366%2014.1665C21.1366%2016.9998%2016.8866%2018.4165%2016.8866%2018.4165'%20stroke='white'%20stroke-width='2.83333'%20stroke-linecap='round'%20stroke-linejoin='round'/%3e%3cpath%20d='M17%2024.0833H17.015'%20stroke='white'%20stroke-width='2.83333'%20stroke-linecap='round'%20stroke-linejoin='round'/%3e%3c/svg%3e"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;

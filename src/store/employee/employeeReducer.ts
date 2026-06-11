@@ -1,4 +1,4 @@
-import { EMPLOYEE_ACTION_TYPES, type AddEmployeeAction, type EmployeeAction, type EmployeeRecord, type EmployeeState } from "./employee.types"
+import { type EmployeeRecord, type EmployeeState } from "./employee.types"
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 
 const initialState: EmployeeState = {
