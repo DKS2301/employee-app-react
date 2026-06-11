@@ -19,7 +19,7 @@
 
 .table-title {
     font-weight: bold;
-    background-color: #EAF9FF;
+    background-color: var(--theme-muted-primary);
     padding: 10px 15px;
 }
 
@@ -31,7 +31,7 @@
 }
 
 .table-row:hover{
-    background-color: var(--theme-shadow);
+    background-color: var(--theme-muted-primary);
     .actions{
         background-color: #00000000;
     }

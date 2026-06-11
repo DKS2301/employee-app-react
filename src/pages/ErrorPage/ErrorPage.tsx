@@ -1,11 +1,33 @@
-import React from 'react'
+import './ErrorPage.css'
+import { useNavigate, useRouteError, isRouteErrorResponse } from 'react-router';
 
 function ErrorPage() {
-  return (
-    <div>
-        NOT FOUND
-    </div>
-  )
+    const navigate = useNavigate();
+    const error = useRouteError();
+
+    let title = 'Something Went Wrong';
+    let message = 'An unexpected error occurred.';
+
+    if (isRouteErrorResponse(error)) {
+        title = `${error.status} Error`;
+        message = error.statusText;
+    } else if (error instanceof Error) {
+        message = error.message;
+    }
+
+    return (
+        <main className="error-page">
+            <div className="error-page-content">
+                <h1>{title}</h1>
+
+                <p>{message}</p>
+
+                <button onClick={() => navigate(-1)}>
+                    Go Back
+                </button>
+            </div>
+        </main>
+    );
 }
 
-export default ErrorPage
+export default ErrorPage;

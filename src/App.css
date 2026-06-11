@@ -9,6 +9,7 @@
     --theme-foreground: #000000;
     --theme-muted-foreground: #63667a;
     --theme-primary: #03aeee;
+    --theme-muted-primary: #EAF9FF;    
     --theme-primary-text: #ffffff;
     --theme-border: #cccccc;
     --theme-shadow: #0000000a;
@@ -201,7 +202,7 @@ nav {
             select{
                 width:90px;
                 height: 36px;
-                background-color: #EAF9FF;
+                background-color: var(--theme-muted-primary);
                 border-radius: 13px;
                 color: #000000;
             }
@@ -215,7 +216,7 @@ nav {
         }
     }
     button{
-        background-color: #EAF9FF;
+        background-color: var(--theme-muted-primary);
         border-radius: 56px;
         font-weight: bold;
         display: flex;

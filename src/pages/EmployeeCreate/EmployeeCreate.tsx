@@ -16,8 +16,8 @@ function EmployeeCreate() {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const [createEmployee] = useCreateEmployeeMutation();
-  const [updateEmployee] = useUpdateEmployeeMutation();
+  const [createEmployee, {isLoading : isCreating}] = useCreateEmployeeMutation();
+  const [updateEmployee, {isLoading: isUpdating}] = useUpdateEmployeeMutation();
   const [updateEmployeeAddress] = useUpdateEmployeeAddressMutation();
 
   const { data } = useGetEmployeeByIdQuery(Number(id), {
@@ -61,11 +61,13 @@ function EmployeeCreate() {
 
     const formData = new FormData(event.currentTarget);
 
-    await createEmployee({
-      ...getFormValues(formData),
-      password: formData.get("password") as string,
-      address: getAddressValues(formData),
-    });
+    if(!isCreating){
+      await createEmployee({
+        ...getFormValues(formData),
+        password: formData.get("password") as string,
+        address: getAddressValues(formData),
+      });
+    }
 
     navigate("/employee");
   };
@@ -82,7 +84,7 @@ function EmployeeCreate() {
       ...getFormValues(formData),
     });
 
-    if (employee?.address?.id) {
+    if (!isUpdating && employee?.address?.id) {
       await updateEmployeeAddress({
         id: Number(id),
         address_id: employee.address.id,

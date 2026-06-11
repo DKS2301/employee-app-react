@@ -16,7 +16,7 @@ import './EmployeeList.css';
 
 import {
     useDeleteEmployeeMutation,
-    useGetEmployeesByFilterQuery,
+    useLazyGetEmployeesByFilterQuery,
 } from '../../api-services/employees/employees.api';
 
 const Row = React.lazy(() => import('../../components/Table/Row'));
@@ -28,13 +28,16 @@ function EmployeeList() {
     const [dialogOpen, setDialogOpen] = useState(false);
     const [selectedEmployeeId, setSelectedEmployeeId] = useState<number>();
 
-    const {
-        data: employees = [],
-        isLoading,
-        isFetching,
-        isError,
-        error,
-    } = useGetEmployeesByFilterQuery({ status });
+    const [
+        filterEmployeeByStatus,
+        {
+            data: employees = [],
+            isLoading,
+            isFetching,
+            isError,
+            error,
+        },
+    ] = useLazyGetEmployeesByFilterQuery();
 
     const [
         deleteEmployee,
@@ -51,6 +54,10 @@ function EmployeeList() {
             console.error('Failed to fetch employees', error);
         }
     }, [isError, error]);
+
+    useEffect(() => {
+        filterEmployeeByStatus({status})
+    }, [status, filterEmployeeByStatus]);
 
     useEffect(() => {
         if (isDeleteError) {

@@ -18,19 +18,32 @@ function Login() {
         console.log(email,password)
     }
 
-    function handleEmailChange(e:React.ChangeEvent<HTMLInputElement>){
-        setEmail(e.target.value)
-        const emailError = email && !email.includes('@') ? 'Email must include @' : '';
-        setError(emailError)
+    function handleEmailChange(
+        e: React.ChangeEvent<HTMLInputElement>
+    ) {
+        const value = e.target.value;
+
+        setEmail(value);
+
+        setError(
+            value && !value.includes("@")
+                ? "Email must include @"
+                : ""
+        );
     }
 
-    function handlePasswordChange(e:React.ChangeEvent<HTMLInputElement>){
-        setPassword(e.target.value)
-        const passwordError = password.length < 8 ? 'Password must conatin atleast 8 chars' : '';
-        if (password.length>10) {
-            throw new Error('Password is required');
-        }
-        setError(passwordError)
+    function handlePasswordChange(
+        e: React.ChangeEvent<HTMLInputElement>
+    ) {
+        const value = e.target.value;
+
+        setPassword(value);
+
+        setError(
+            value.length < 8
+                ? "Password must contain at least 8 chars"
+                : ""
+        );
     }
 
     async function checkLogin(){
@@ -58,20 +71,20 @@ function Login() {
             <form onSubmit={(e)=> handleSubmit(e)}>
                 <img src="./src/assets/images/logo.png" alt="Logo" id="logo-image"/>
                 <div className='input-group'>
-                    <Input type="text" label="Username" placeholder=" " isRequired={true} onChange={(e)=>{handleEmailChange(e)}} autoFocus={true}/>
+                    <Input type="text" id= "username" label="Username" placeholder=" " isRequired={true} onChange={(e)=>{handleEmailChange(e)}} autoFocus={true}/>
                     <label htmlFor="username">
                         Username
                     </label>
                 </div>
                 <div className='input-group'>
-                    <Input type="password" label="Password" placeholder=" " isRequired={true} onChange={(e)=>{handlePasswordChange(e)}}/>
-                    <label htmlFor="username">
+                    <Input type="password" id="password" label="Password" placeholder=" " isRequired={true} onChange={(e)=>{handlePasswordChange(e)}}/>
+                    <label htmlFor="password">
                         Password
                     </label>
                 </div>
                 {/* <Link to='/employee' >
                 </Link> */}
-                    <Button typeName="submit" className='primary' label="Login" onClick={()=>checkLogin()} disabled={isLoading}/>
+                    <Button id='login' typeName="submit" className={`${isLoading ? 'outline': 'primary'}`} label={`${isLoading ? 'Logging in..': 'Login'}`} onClick={()=>checkLogin()} disabled={isLoading}/>
                 <div className='error'>
                     {error}
                 </div>

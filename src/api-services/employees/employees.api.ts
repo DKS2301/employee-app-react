@@ -33,7 +33,7 @@ const employeeBaseApi = createApi({
                     params
                 }
             },
-            // invalidatesTags: ['Employees']
+            providesTags: ['Employees']
         }),
         createEmployee: builder.mutation<EmployeeResponse, EmployeePayload>({
             query: (payload) => {
@@ -81,7 +81,7 @@ const employeeBaseApi = createApi({
 
 	
 export const {
-  useGetEmployeesQuery, useGetEmployeeByIdQuery, useCreateEmployeeMutation, useUpdateEmployeeMutation, useDeleteEmployeeMutation, useUpdateEmployeeAddressMutation, useGetEmployeesByFilterQuery
+  useGetEmployeesQuery, useGetEmployeeByIdQuery, useCreateEmployeeMutation, useUpdateEmployeeMutation, useDeleteEmployeeMutation, useUpdateEmployeeAddressMutation, useGetEmployeesByFilterQuery, useLazyGetEmployeesByFilterQuery, useLazyGetEmployeesQuery, useLazyGetEmployeeByIdQuery
 } = employeeBaseApi;
 
 export default employeeBaseApi;
