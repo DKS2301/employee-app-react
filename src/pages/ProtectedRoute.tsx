@@ -1,14 +1,15 @@
-import React from 'react'
-import { Outlet } from 'react-router'
-import Login from './Login/Login'
+import React from 'react';
+import { Outlet } from 'react-router';
+
+import Login from './Login/Login';
 
 function ProtectedRoute() {
-    const isAuthenticated = true
-    if(!isAuthenticated){
-        return <Login/>
+    const isAuthenticated = true;
+    if (!isAuthenticated) {
+        return <Login />;
     }
 
-    return <Outlet/>
+    return <Outlet />;
 }
 
-export default ProtectedRoute
+export default ProtectedRoute;

@@ -1,26 +1,17 @@
-import './App.css'
-import { RouterProvider } from 'react-router'
-import  {router} from './router/router'
-import {Provider} from 'react-redux';
+import './App.css';
+
+import { Provider } from 'react-redux';
+import { RouterProvider } from 'react-router';
+
+import { router } from './router/router';
 import store from './store/store';
 
 function App() {
-
-  return (
-    <>
-      {/* <Login/> */}
-      {/* <Layout>
-        <EmployeeList/>
-      </Layout> */}
-      {/* <EmployeeCreate /> */}
-      {/* <Chatbox/> */}
-      {/* <LandingPage/> */}
-      <Provider store={store}>
-        <RouterProvider router= {router} />
-      </Provider>
-    </>
-  )
+    return (
+        <Provider store={store}>
+            <RouterProvider router={router} />
+        </Provider>
+    );
 }
 
-export default App
-
+export default App;

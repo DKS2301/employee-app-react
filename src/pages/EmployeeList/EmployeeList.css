@@ -1,4 +1,4 @@
-.table-rows{
+.table-rows {
     overflow-y: scroll;
     display: flex;
     flex-direction: column;
@@ -6,11 +6,11 @@
     scrollbar-width: none;
 }
 
-.error{
+.error {
     color: var(--theme-error);
 }
 
-#status-row{
+#status-row {
     width: 90px;
     border-radius: 13px;
     display: flex;
@@ -18,26 +18,25 @@
     align-items: center;
 }
 
-.status-filter{
+.status-filter {
     padding: 5px 10px 5px 10px;
     border: none;
 }
-.active{
-    background-color: #DAF6E1;
-    color: #00812F;
-
+.active {
+    background-color: #daf6e1;
+    color: #00812f;
 }
 
-    .probation{
-        background-color: #FFF8D7;
-        color: #AA8A00;
-    }
+.probation {
+    background-color: #fff8d7;
+    color: #aa8a00;
+}
 
-    .inactive{
-        background-color: #FFE2E2;
-        color: #DC3232;
-    }
+.inactive {
+    background-color: #ffe2e2;
+    color: #dc3232;
+}
 
-    .actions{
-        background-color: #FFFFFF;
-    }
+.actions {
+    background-color: #ffffff;
+}

@@ -1,19 +1,17 @@
-import React, { Suspense, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router';
+import './EmployeeList.css';
 
-import add from '@images/add.svg';
-import dropdown from '@images/dropdown.svg';
-
-import Card from '@components/Card';
-import Title from '@components/Table/Title';
-import TitleCard from '@components/TitleCard';
 import Button from '@components/Button';
+import Card from '@components/Card';
 import Chatbox from '@components/Chatbot/Chatbox';
 import DialogBox from '@components/DialogBox/DialogBox';
 import Fallback from '@components/Fallback';
-import Row from '@components/Table/Row'
-
-import './EmployeeList.css';
+import Row from '@components/Table/Row';
+import Title from '@components/Table/Title';
+import TitleCard from '@components/TitleCard';
+import add from '@images/add.svg';
+import dropdown from '@images/dropdown.svg';
+import React, { Suspense, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router';
 
 import {
     useDeleteEmployeeMutation,
@@ -31,13 +29,7 @@ function EmployeeList() {
 
     const [
         filterEmployeeByStatus,
-        {
-            data: employees = [],
-            isLoading,
-            isFetching,
-            isError,
-            error,
-        },
+        { data: employees = [], isLoading, isFetching, isError, error },
     ] = useLazyGetEmployeesByFilterQuery();
 
     const [
@@ -57,7 +49,7 @@ function EmployeeList() {
     }, [isError, error]);
 
     useEffect(() => {
-        filterEmployeeByStatus({status})
+        filterEmployeeByStatus({ status });
     }, [status, filterEmployeeByStatus]);
 
     useEffect(() => {
@@ -72,36 +64,28 @@ function EmployeeList() {
         }
     }, [isDeleteSuccess]);
 
-    const handleDelete = (
-        e: React.MouseEvent<HTMLButtonElement>,
-        id: number
-    ) => {
+    const handleDelete = (e: React.MouseEvent<HTMLButtonElement>, id: number) => {
         e.stopPropagation();
         setSelectedEmployeeId(id);
         setDialogOpen(true);
     };
 
-    const handleEdit = (
-        e: React.MouseEvent<HTMLButtonElement>,
-        id: number
-    ) => {
+    const handleEdit = (e: React.MouseEvent<HTMLButtonElement>, id: number) => {
         e.stopPropagation();
         navigate(`create/${id}`);
     };
 
-    const cancelDelete = (
-        e: React.MouseEvent<HTMLButtonElement>
-    ) => {
+    const cancelDelete = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.stopPropagation();
         setDialogOpen(false);
     };
 
-    const confirmDelete = async (
-        e: React.MouseEvent<HTMLButtonElement>
-    ) => {
+    const confirmDelete = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.stopPropagation();
 
-        if (!selectedEmployeeId) return;
+        if (!selectedEmployeeId) {
+            return;
+        }
 
         try {
             await deleteEmployee(selectedEmployeeId).unwrap();
@@ -123,19 +107,15 @@ function EmployeeList() {
                                 typeName="button"
                                 className="outline"
                                 label="Cancel"
-                                testId = "delete-cancel"
+                                testId="delete-cancel"
                                 onClick={cancelDelete}
                             />
 
                             <Button
                                 typeName="submit"
                                 className="primary"
-                                label={
-                                    isDeleting
-                                        ? 'Deleting...'
-                                        : 'Confirm'
-                                }
-                                testId = "delete-confirm"
+                                label={isDeleting ? 'Deleting...' : 'Confirm'}
+                                testId="delete-confirm"
                                 disabled={isDeleting}
                                 onClick={confirmDelete}
                             />
@@ -152,20 +132,14 @@ function EmployeeList() {
                         <select
                             id="status"
                             value={status}
-                            onChange={(e) =>
-                                setStatus(e.target.value)
-                            }
+                            onChange={(e) => setStatus(e.target.value)}
                             className="status-filter"
                             data-testid="status-filter"
                         >
                             <option value="all">All</option>
                             <option value="Active">Active</option>
-                            <option value="Probation">
-                                Probation
-                            </option>
-                            <option value="Inactive">
-                                Inactive
-                            </option>
+                            <option value="Probation">Probation</option>
+                            <option value="Inactive">Inactive</option>
                         </select>
 
                         <img src={dropdown} alt="" />
@@ -174,64 +148,43 @@ function EmployeeList() {
                     <Button
                         typeName="submit"
                         className=""
-                        testId='create-btn'
+                        testId="create-btn"
                         label={
                             <>
                                 <img src={add} alt="add" />
                                 Create Employee
                             </>
                         }
-                        onClick={() =>
-                            navigate('/employee/create')
-                        }
+                        onClick={() => navigate('/employee/create')}
                     />
                 </TitleCard>
 
                 <Title />
 
                 {/* <Suspense fallback={<Fallback />}> */}
-                    <div className="table-rows">
-                        {isLoading || isFetching ? (
-                            <Fallback />
-                        ) : isError ? (
-                            <p>
-                                Failed to load employees.
-                            </p>
-                        ) : employees.length === 0 ? (
-                            <p>
-                                No employees found for "
-                                {status}".
-                            </p>
-                        ) : (
-                            employees.map((employee) => (
-                                <div
-                                    key={employee.id}
-                                    onClick={() =>
-                                        navigate(
-                                            `/employee/${employee.id}`
-                                        )
-                                    }
-                                    className='clickable-element'
-                                >
-                                    <Row
-                                        employee={employee}
-                                        deleteAction={(e) =>
-                                            handleDelete(
-                                                e,
-                                                employee.id
-                                            )
-                                        }
-                                        editAction={(e) =>
-                                            handleEdit(
-                                                e,
-                                                employee.id
-                                            )
-                                        }
-                                    />
-                                </div>
-                            ))
-                        )}
-                    </div>
+                <div className="table-rows">
+                    {isLoading || isFetching ? (
+                        <Fallback />
+                    ) : isError ? (
+                        <p>Failed to load employees.</p>
+                    ) : employees.length === 0 ? (
+                        <p>No employees found for "{status}".</p>
+                    ) : (
+                        employees.map((employee) => (
+                            <div
+                                key={employee.id}
+                                onClick={() => navigate(`/employee/${employee.id}`)}
+                                className="clickable-element"
+                            >
+                                <Row
+                                    employee={employee}
+                                    deleteAction={(e) => handleDelete(e, employee.id)}
+                                    editAction={(e) => handleEdit(e, employee.id)}
+                                />
+                            </div>
+                        ))
+                    )}
+                </div>
                 {/* </Suspense> */}
 
                 <Chatbox />

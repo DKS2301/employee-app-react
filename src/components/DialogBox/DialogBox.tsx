@@ -1,19 +1,18 @@
-import React, { type ReactNode } from 'react'
-import './DialogBox.css'
+import './DialogBox.css';
 
-interface dialogProps{
-    classNames: string,
-    children?: ReactNode
+import React, { type ReactNode } from 'react';
+
+interface dialogProps {
+    classNames: string;
+    children?: ReactNode;
 }
 
-function DialogBox({classNames,children}: dialogProps) {
-  return (
-    <div className= 'dialog-box'>
-      <div className={`dialog-contents ${classNames}`}>
-        {children}
-      </div>
-    </div>
-  )
+function DialogBox({ classNames, children }: dialogProps) {
+    return (
+        <div className="dialog-box">
+            <div className={`dialog-contents ${classNames}`}>{children}</div>
+        </div>
+    );
 }
 
-export default DialogBox
+export default DialogBox;

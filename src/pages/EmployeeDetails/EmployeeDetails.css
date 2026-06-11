@@ -1,4 +1,4 @@
-.employee-details{
+.employee-details {
     list-style: none;
     padding: 10px 25px;
     margin: 0;
@@ -8,36 +8,36 @@
     background-color: white;
 }
 
-.detail-row-1{
+.detail-row-1 {
     display: grid;
     grid-template-columns:
-        2fr 
-        1.5fr 
+        2fr
         1.5fr
         1.5fr
-        1fr 
-        1fr 
+        1.5fr
+        1fr
+        1fr
         1fr;
 }
 
-.seperator{
-    background-color: #E5E8ED;
+.seperator {
+    background-color: #e5e8ed;
     width: 90vh;
     height: 0.05vh;
 }
-.detail-row-2{
+.detail-row-2 {
     display: grid;
     grid-template-columns:
-        2fr 
-        1.5fr 
+        2fr
         1.5fr
         1.5fr
-        1fr 
-        1fr 
+        1.5fr
+        1fr
+        1fr
         1fr;
 }
 
-.detail-item{
+.detail-item {
     display: flex;
     flex-direction: column;
     padding: 20px;
@@ -45,6 +45,6 @@
     font-size: 18px;
 }
 
-.detail-label{
-    color: #8991A1;
+.detail-label {
+    color: #8991a1;
 }

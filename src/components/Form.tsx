@@ -1,38 +1,32 @@
-import { useState } from "react";
-import { useNavigate } from "react-router";
-import { FileUploader } from "react-drag-drop-files";
+import close from '@images/close.svg';
+import cloud from '@images/cloud.svg';
+import paperclip from '@images/paperclip.svg';
+import upload from '@images/upload.svg';
+import { useState } from 'react';
+import { FileUploader } from 'react-drag-drop-files';
+import { useNavigate } from 'react-router';
 
-import Button from "./Button";
-import DialogBox from "./DialogBox/DialogBox";
-import InputGroup from "./InputGroup";
+import type { EmployeeResponse } from '@/api-services/employees/types';
 
-import cloud from "@images/cloud.svg";
-import close from "@images/close.svg";
-import paperclip from "@images/paperclip.svg";
-import upload from "@images/upload.svg";
-
-import type { EmployeeResponse } from "@/api-services/employees/types";
+import Button from './Button';
+import DialogBox from './DialogBox/DialogBox';
+import InputGroup from './InputGroup';
 
 interface FormProps {
     employeeData?: EmployeeResponse;
     onSubmit: React.FormEventHandler<HTMLFormElement>;
 }
 
-const FILE_TYPES = ["JPG", "PNG", "GIF"];
+const FILE_TYPES = ['JPG', 'PNG', 'GIF'];
 
 const STATUS_OPTIONS = [
-    { value: "Probation" },
-    { value: "Active" },
-    { value: "Inactive" },
-    { value: "Terminated" },
+    { value: 'Probation' },
+    { value: 'Active' },
+    { value: 'Inactive' },
+    { value: 'Terminated' },
 ];
 
-const ROLE_OPTIONS = [
-    { value: "UI" },
-    { value: "UX" },
-    { value: "DEVELOPER" },
-    { value: "HR" },
-];
+const ROLE_OPTIONS = [{ value: 'UI' }, { value: 'UX' }, { value: 'DEVELOPER' }, { value: 'HR' }];
 
 function Form({ employeeData, onSubmit }: FormProps) {
     const navigate = useNavigate();
@@ -48,9 +42,7 @@ function Form({ employeeData, onSubmit }: FormProps) {
         setUploadDialog(false);
     };
 
-    const removeFile = (
-        e?: React.MouseEvent<HTMLImageElement | HTMLButtonElement>
-    ) => {
+    const removeFile = (e?: React.MouseEvent<HTMLImageElement | HTMLButtonElement>) => {
         e?.stopPropagation();
         setFile(undefined);
     };
@@ -62,11 +54,7 @@ function Form({ employeeData, onSubmit }: FormProps) {
                     <>
                         <div className="title">
                             <h5>Upload Proof</h5>
-                            <img
-                                src={close}
-                                alt="close"
-                                onClick={closeUploadDialog}
-                            />
+                            <img src={close} alt="close" onClick={closeUploadDialog} />
                         </div>
 
                         <FileUploader
@@ -75,11 +63,7 @@ function Form({ employeeData, onSubmit }: FormProps) {
                             types={FILE_TYPES}
                         >
                             <div className="upload-box">
-                                <img
-                                    src={cloud}
-                                    alt="cloud"
-                                    className="cloud-img"
-                                />
+                                <img src={cloud} alt="cloud" className="cloud-img" />
 
                                 {!file ? (
                                     <div className="upload-options">
@@ -88,11 +72,7 @@ function Form({ employeeData, onSubmit }: FormProps) {
                                         <div className="or">Or</div>
 
                                         <div>
-                                            <img
-                                                src={upload}
-                                                alt="upload"
-                                                className="upload-img"
-                                            />
+                                            <img src={upload} alt="upload" className="upload-img" />
                                             <p>Upload file</p>
                                         </div>
                                     </div>
@@ -126,21 +106,21 @@ function Form({ employeeData, onSubmit }: FormProps) {
                     label="Employee Name"
                     id="employee-name"
                     name="employee-name"
-                    defaultValue={employeeData?.name ?? ""}
+                    defaultValue={employeeData?.name ?? ''}
                 />
 
                 <InputGroup
                     label="Employee Email"
                     id="employee-email"
                     name="employee-email"
-                    defaultValue={employeeData?.email ?? ""}
+                    defaultValue={employeeData?.email ?? ''}
                 />
 
                 <InputGroup
                     label="Employee ID"
                     id="employee-id"
                     name="employee-id"
-                    defaultValue={employeeData?.id ?? ""}
+                    defaultValue={(employeeData?.id as unknown as string) ?? ''}
                     disabled={true}
                 />
 
@@ -149,7 +129,7 @@ function Form({ employeeData, onSubmit }: FormProps) {
                     id="joining-date"
                     name="joining-date"
                     type="date"
-                    defaultValue={employeeData?.joiningDate ?? ""}
+                    defaultValue={employeeData?.joiningDate ?? ''}
                 />
 
                 <InputGroup
@@ -158,7 +138,7 @@ function Form({ employeeData, onSubmit }: FormProps) {
                     name="role"
                     variant="select"
                     options={ROLE_OPTIONS}
-                    defaultValue={employeeData?.role ?? ""}
+                    defaultValue={employeeData?.role ?? ''}
                 />
 
                 <InputGroup
@@ -167,9 +147,9 @@ function Form({ employeeData, onSubmit }: FormProps) {
                     name="status"
                     variant="select"
                     options={STATUS_OPTIONS}
-                    defaultValue={employeeData?.status ?? ""}
+                    defaultValue={employeeData?.status ?? ''}
                 />
-                
+
                 <div className="input-group">
                     <label htmlFor="address">Address</label>
 
@@ -177,30 +157,27 @@ function Form({ employeeData, onSubmit }: FormProps) {
                         id="address"
                         name="address"
                         placeholder="Address Line 1"
-                        defaultValue={employeeData?.address?.line1 ?? ""}
+                        defaultValue={employeeData?.address?.line1 ?? ''}
                     />
 
                     <div className="address-group">
-
                         <input
                             name="city"
                             placeholder="City"
-                            defaultValue={employeeData?.address?.city ?? ""}
+                            defaultValue={employeeData?.address?.city ?? ''}
                         />
 
                         <input
                             name="country"
                             placeholder="Country"
-                            defaultValue={employeeData?.address?.country ?? ""}
+                            defaultValue={employeeData?.address?.country ?? ''}
                         />
 
                         <input
                             type="number"
                             name="postalCode"
                             placeholder="Postal Code"
-                            defaultValue={
-                                employeeData?.address?.postal_code ?? ""
-                            }
+                            defaultValue={employeeData?.address?.postal_code ?? ''}
                         />
                     </div>
                 </div>
@@ -209,14 +186,10 @@ function Form({ employeeData, onSubmit }: FormProps) {
                     label="Experience"
                     id="experience"
                     name="experience"
-                    defaultValue={employeeData?.experience ?? ""}
+                    defaultValue={employeeData?.experience ?? ''}
                 />
 
-
-                <label
-                    className="file-upload"
-                    onClick={() => setUploadDialog(true)}
-                >
+                <label className="file-upload" onClick={() => setUploadDialog(true)}>
                     <p>Upload ID Proof</p>
 
                     <div>
@@ -234,10 +207,7 @@ function Form({ employeeData, onSubmit }: FormProps) {
                         )}
 
                         <p>
-                            <img
-                                src={paperclip}
-                                alt="attach file"
-                            />
+                            <img src={paperclip} alt="attach file" />
                             Attach files
                         </p>
                     </div>
@@ -247,7 +217,7 @@ function Form({ employeeData, onSubmit }: FormProps) {
                     <Button
                         typeName="submit"
                         className="primary"
-                        label={employeeData ? "Update" : "Create"}
+                        label={employeeData ? 'Update' : 'Create'}
                     />
 
                     <Button

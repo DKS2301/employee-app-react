@@ -1,14 +1,12 @@
 interface FallbackProps {
-  message?: string;
+    message?: string;
 }
 
-export default function Fallback({
-  message = 'Loading...',
-}: FallbackProps) {
-  return (
-    <div className="loading-state">
-      <div className="spinner" />
-      <span>{message}</span>
-    </div>
-  );
+export default function Fallback({ message = 'Loading...' }: FallbackProps) {
+    return (
+        <div className="loading-state">
+            <div className="spinner" />
+            <span>{message}</span>
+        </div>
+    );
 }

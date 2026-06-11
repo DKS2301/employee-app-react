@@ -1,21 +1,18 @@
 export interface Address {
     line1: string;
     line2: string;
-    city: string,
-    country: string,
-    postal_code: string
+    city: string;
+    country: string;
+    postal_code: string;
 }
 
-export type EmployeeStatus =
-    | "Active"
-    | "Probation"
-    | "Inactive";
+export type EmployeeStatus = 'Active' | 'Probation' | 'Inactive';
 
 export interface EmployeeRecord {
     id: string;
     name: string;
     joiningDate: string; // YYYY-MM-DD
-    email: string,
+    email: string;
     role: string;
     status: EmployeeStatus;
 
@@ -26,9 +23,9 @@ export interface EmployeeRecord {
 }
 
 export const EMPLOYEE_ACTION_TYPES = {
-    ADD: "employee/ADD",
-    UPDATE: "employee/UPDATE",
-    DELETE: "employee/DELETE",
+    ADD: 'employee/ADD',
+    UPDATE: 'employee/UPDATE',
+    DELETE: 'employee/DELETE',
 } as const;
 
 export interface EmployeeState {
@@ -50,7 +47,4 @@ export interface DeleteEmployeeAction {
     payload: string; // employee id
 }
 
-export type EmployeeAction =
-    | AddEmployeeAction
-    | UpdateEmployeeAction
-    | DeleteEmployeeAction;
+export type EmployeeAction = AddEmployeeAction | UpdateEmployeeAction | DeleteEmployeeAction;

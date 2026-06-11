@@ -1,19 +1,17 @@
-import React, { type ReactNode } from 'react'
+import React, { type ReactNode } from 'react';
 
-interface titleProps{
-    label:string,
-    children?: ReactNode
+interface titleProps {
+    label: string;
+    children?: ReactNode;
 }
 
-function TitleCard({label, children}: titleProps) {
-  return (
-    <div className="card title-container">
-        <h2>{label}</h2>
-        <div className='add-props'>
-        {children}
+function TitleCard({ label, children }: titleProps) {
+    return (
+        <div className="card title-container">
+            <h2>{label}</h2>
+            <div className="add-props">{children}</div>
         </div>
-    </div>
-  )
+    );
 }
 
-export default TitleCard
+export default TitleCard;

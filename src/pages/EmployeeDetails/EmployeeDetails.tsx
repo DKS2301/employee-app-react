@@ -1,23 +1,17 @@
-import { useNavigate, useParams } from "react-router";
+import './EmployeeDetails.css';
 
-import Button from "@components/Button";
-import Card from "@components/Card";
-import TitleCard from "@components/TitleCard";
-import pen from "@images/pen1.svg";
-
-import "./EmployeeDetails.css";
-
-import { useGetEmployeeByIdQuery } from "@api-services/employees/employees.api";
+import { useGetEmployeeByIdQuery } from '@api-services/employees/employees.api';
+import Button from '@components/Button';
+import Card from '@components/Card';
+import TitleCard from '@components/TitleCard';
+import pen from '@images/pen1.svg';
+import { useNavigate, useParams } from 'react-router';
 
 function EmployeeDetails() {
     const navigate = useNavigate();
     const { id } = useParams();
 
-    const {
-        data: employee,
-        isLoading,
-        error,
-    } = useGetEmployeeByIdQuery(Number(id));
+    const { data: employee, isLoading, error } = useGetEmployeeByIdQuery(Number(id));
 
     if (isLoading) {
         return (
@@ -30,9 +24,7 @@ function EmployeeDetails() {
     if (error || !employee) {
         return (
             <Card>
-                <div className="page-state error">
-                    Failed to load employee details.
-                </div>
+                <div className="page-state error">Failed to load employee details.</div>
             </Card>
         );
     }
@@ -40,15 +32,10 @@ function EmployeeDetails() {
     const address = employee.addresses?.[0];
 
     const formattedAddress = address
-        ? [
-              address.line1,
-              address.city,
-              address.country,
-              address.postal_code,
-          ]
+        ? [address.line1, address.city, address.country, address.postal_code]
               .filter(Boolean)
-              .join(", ")
-        : "No Address Provided";
+              .join(', ')
+        : 'No Address Provided';
 
     return (
         <Card>
@@ -56,16 +43,10 @@ function EmployeeDetails() {
                 <Button
                     typeName="submit"
                     className=""
-                    onClick={() =>
-                        navigate(`/employee/create/${employee.id}`)
-                    }
+                    onClick={() => navigate(`/employee/create/${employee.id}`)}
                     label={
                         <>
-                            <img
-                                src={pen}
-                                alt="edit"
-                                className="details"
-                            />
+                            <img src={pen} alt="edit" className="details" />
                             Edit Details
                         </>
                     }
@@ -76,23 +57,17 @@ function EmployeeDetails() {
                 <div className="detail-row-1">
                     <div className="detail-item">
                         <span className="detail-label">Employee Name</span>
-                        <span className="detail-value">
-                            {employee.name}
-                        </span>
+                        <span className="detail-value">{employee.name}</span>
                     </div>
 
                     <div className="detail-item">
                         <span className="detail-label">Joining Date</span>
-                        <span className="detail-value">
-                            {employee.joining_date}
-                        </span>
+                        <span className="detail-value">{employee.joining_date}</span>
                     </div>
 
                     <div className="detail-item">
                         <span className="detail-label">Role</span>
-                        <span className="detail-value">
-                            {employee.role}
-                        </span>
+                        <span className="detail-value">{employee.role}</span>
                     </div>
 
                     <div className="detail-item">
@@ -107,9 +82,7 @@ function EmployeeDetails() {
 
                     <div className="detail-item">
                         <span className="detail-label">Experience</span>
-                        <span className="detail-value">
-                            {employee.experience || "N/A"}
-                        </span>
+                        <span className="detail-value">{employee.experience || 'N/A'}</span>
                     </div>
                 </div>
 
@@ -118,23 +91,17 @@ function EmployeeDetails() {
                 <div className="detail-row-2">
                     <div className="detail-item">
                         <span className="detail-label">Address</span>
-                        <span className="detail-value">
-                            {formattedAddress}
-                        </span>
+                        <span className="detail-value">{formattedAddress}</span>
                     </div>
 
                     <div className="detail-item">
                         <span className="detail-label">Employee ID</span>
-                        <span className="detail-value">
-                            {employee.id}
-                        </span>
+                        <span className="detail-value">{employee.id}</span>
                     </div>
 
                     <div className="detail-item">
                         <span className="detail-label">Email</span>
-                        <span className="detail-value">
-                            {employee.email}
-                        </span>
+                        <span className="detail-value">{employee.email}</span>
                     </div>
                 </div>
             </div>

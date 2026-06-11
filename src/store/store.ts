@@ -1,8 +1,9 @@
 // import rootReducer from "./rootReducer";
-import { configureStore } from "@reduxjs/toolkit";
-import { useDispatch, useSelector } from "react-redux";
-import employeeReducer from "./employee/employeeReducer";
-import employeeBaseApi from "../api-services/employees/employees.api";
+import { configureStore } from '@reduxjs/toolkit';
+import { useDispatch, useSelector } from 'react-redux';
+
+import employeeBaseApi from '../api-services/employees/employees.api';
+import employeeReducer from './employee/employeeReducer';
 
 // const store = createStore(
 //     rootReducer,
@@ -13,16 +14,15 @@ import employeeBaseApi from "../api-services/employees/employees.api";
 const store = configureStore({
     reducer: {
         employee: employeeReducer,
-        [employeeBaseApi.reducerPath]: employeeBaseApi.reducer
+        [employeeBaseApi.reducerPath]: employeeBaseApi.reducer,
     },
-    middleware: (getDefaultMiddleware) =>
-        getDefaultMiddleware().concat(employeeBaseApi.middleware)
-})
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(employeeBaseApi.middleware),
+});
 export default store;
 
-export type RootState = ReturnType<typeof store.getState>
-export type AppDispatch = typeof store.dispatch
-export type AppStore = typeof store
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
+export type AppStore = typeof store;
 
-export const useAppDispatch = () => useDispatch<AppDispatch>()
-export const useAppSelector = useSelector<RootState>
+export const useAppDispatch = () => useDispatch<AppDispatch>();
+export const useAppSelector = useSelector<RootState>;

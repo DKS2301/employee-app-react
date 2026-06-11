@@ -9,7 +9,7 @@
     --theme-foreground: #000000;
     --theme-muted-foreground: #63667a;
     --theme-primary: #03aeee;
-    --theme-muted-primary: #EAF9FF;    
+    --theme-muted-primary: #eaf9ff;
     --theme-primary-text: #ffffff;
     --theme-border: #cccccc;
     --theme-shadow: #0000000a;
@@ -21,12 +21,12 @@
     margin: 0px;
     border: none;
     padding: 0px;
-    font-family: 'Nunito','sans-serif';
-  }
+    font-family: 'Nunito', 'sans-serif';
+}
 
-.clickable-element, 
+.clickable-element,
 button {
-  cursor: pointer;
+    cursor: pointer;
 }
 
 input,
@@ -43,7 +43,7 @@ select {
 button {
     outline: none;
     border-radius: 10px;
-    padding:15px 10px 15px 15px;
+    padding: 15px 10px 15px 15px;
     text-align: center;
     font-weight: bold;
 }
@@ -146,83 +146,82 @@ main {
 }
 
 nav {
-      display: flex;
-      flex-direction: column;
-      align-items: end;
-      gap: 10px;
-      min-width: max(19%, 300px);
-      background-color: var(--theme-background);
-      padding: 20px 0px 20px 0px;
-      height: 100%;
-      .kv-header {
-          width: 90%;
-          display: flex;
-          flex-direction: row;
-          align-items: center;
-          gap: 10px;
-          padding: 10px;
-          text-decoration: none;
-          color: var(--theme-primary-text);
-          background-color: var(--theme-primary);
-          border-radius: 100px 0px 0px 100px;
-          font-size: 14px;
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    gap: 10px;
+    min-width: max(19%, 300px);
+    background-color: var(--theme-background);
+    padding: 20px 0px 20px 0px;
+    height: 100%;
+    .kv-header {
+        width: 90%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 10px;
+        padding: 10px;
+        text-decoration: none;
+        color: var(--theme-primary-text);
+        background-color: var(--theme-primary);
+        border-radius: 100px 0px 0px 100px;
+        font-size: 14px;
 
-          div {
-              background-color: var(--theme-background);
-              padding: 10px;
-              border-radius: 50%;
-          }
-      }
-  }
+        div {
+            background-color: var(--theme-background);
+            padding: 10px;
+            border-radius: 50%;
+        }
+    }
+}
 
-
-.title-container{
+.title-container {
     display: flex;
     justify-content: space-between;
     align-content: center;
     height: 82px;
-    h2{
+    h2 {
         font-size: 22px;
     }
-    .add-props{
+    .add-props {
         display: flex;
         flex-direction: row;
         gap: 30px;
     }
-    div{
+    div {
         display: flex;
         flex-direction: row;
         align-items: center;
-        label{
-            color: #8991A1;
+        label {
+            color: #8991a1;
         }
-        div{
+        div {
             gap: 10px;
             position: relative;
-            select{
-                width:90px;
+            select {
+                width: 90px;
                 height: 36px;
                 background-color: var(--theme-muted-primary);
                 border-radius: 13px;
                 color: #000000;
             }
-            img{
+            img {
                 position: absolute;
                 width: 7px;
                 height: 7px;
                 right: 15%;
-                top:40%;
+                top: 40%;
             }
         }
     }
-    button{
+    button {
         background-color: var(--theme-muted-primary);
         border-radius: 56px;
         font-weight: bold;
         display: flex;
         flex-direction: row;
         align-items: center;
-        padding:10px;
+        padding: 10px;
         gap: 10px;
         img {
             background-color: var(--theme-primary);
@@ -232,7 +231,6 @@ nav {
     }
 }
 
-
 .main-body {
     display: flex;
     flex-direction: column;
@@ -240,26 +238,26 @@ nav {
 }
 
 .loading-state {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  padding: 32px;
-  color: #666;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 32px;
+    color: #666;
 }
 
 .spinner {
-  width: 32px;
-  height: 32px;
-  border: 3px solid #e5e5e5;
-  border-top-color: #183072;
-  border-radius: 50%;
-  animation: spin 0.8s linear infinite;
+    width: 32px;
+    height: 32px;
+    border: 3px solid #e5e5e5;
+    border-top-color: #183072;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
 }
 
 @keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
+    to {
+        transform: rotate(360deg);
+    }
 }

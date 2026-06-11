@@ -1,16 +1,15 @@
-
-.landing-page{
+.landing-page {
     display: flex;
     flex-direction: row;
-    background-color: #F3F7FB;
-    h4{
-        color: #DB143C;
+    background-color: #f3f7fb;
+    h4 {
+        color: #db143c;
         font-size: 44px;
     }
-    h1{
+    h1 {
         font-size: 72px;
     }
-    div{
+    div {
         justify-content: center;
         align-content: center;
     }

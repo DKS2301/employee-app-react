@@ -1,5 +1,6 @@
-import './ErrorPage.css'
-import { useNavigate, useRouteError, isRouteErrorResponse } from 'react-router';
+import './ErrorPage.css';
+
+import { isRouteErrorResponse, useNavigate, useRouteError } from 'react-router';
 
 function ErrorPage() {
     const navigate = useNavigate();
@@ -22,9 +23,7 @@ function ErrorPage() {
 
                 <p>{message}</p>
 
-                <button onClick={() => navigate(-1)}>
-                    Go Back
-                </button>
+                <button onClick={() => navigate(-1)}>Go Back</button>
             </div>
         </main>
     );

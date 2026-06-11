@@ -1,18 +1,18 @@
-import React, { type ReactNode } from 'react'
+import React, { type ReactNode } from 'react';
 
-interface messageProps{
-    content: ReactNode,
-    id: string
+interface messageProps {
+    content: ReactNode;
+    id: string;
 }
 
-function Message({content, id}: messageProps) {
-  return (
-    <>
-      <div className='message-sent' id={id}>
-        {content}
-      </div>
-    </>
-  )
+function Message({ content, id }: messageProps) {
+    return (
+        <>
+            <div className="message-sent" id={id}>
+                {content}
+            </div>
+        </>
+    );
 }
 
-export default Message
+export default Message;
