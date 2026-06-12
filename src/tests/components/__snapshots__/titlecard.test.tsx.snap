@@ -1,0 +1,20 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`TitleCard Component > match snapshot 1`] = `
+<div>
+  <div
+    class="card title-container"
+  >
+    <h2>
+      Title Card
+    </h2>
+    <div
+      class="add-props"
+    >
+      <div>
+        Hello
+      </div>
+    </div>
+  </div>
+</div>
+`;

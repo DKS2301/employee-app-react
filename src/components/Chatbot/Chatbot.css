@@ -35,6 +35,7 @@
         overflow: scroll;
         scrollbar-width: none;
         height: 28vh;
+        scroll-behavior: smooth;
     }
 
     .send-tab {
@@ -42,7 +43,7 @@
         bottom: 30px;
         left: 20px;
         width: 344px;
-
+        display: flex;
         input {
             width: 100%;
             height: 44px;
@@ -67,6 +68,8 @@
     color: var(--theme-foreground);
     font-size: 14px;
     width: fit-content;
+    max-width: 344px;
+    overflow-wrap: break-word;
 }
 
 .message-sent#sent {

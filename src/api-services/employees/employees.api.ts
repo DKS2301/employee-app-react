@@ -64,7 +64,6 @@ const employeeBaseApi = createApi({
         }),
         updateEmployee: builder.mutation<EmployeeResponse, UpdateEmployeePayload>({
             query: ({ id, ...payload }) => {
-                console.log('update payload', payload);
                 return {
                     url: `employee/${id}`,
                     method: 'PUT',

@@ -6,7 +6,7 @@ function ErrorPage() {
     const navigate = useNavigate();
     const error = useRouteError();
 
-    let title = 'Something Went Wrong';
+    let title = 'Oops';
     let message = 'An unexpected error occurred.';
 
     if (isRouteErrorResponse(error)) {

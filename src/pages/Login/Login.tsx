@@ -37,13 +37,12 @@ function Login() {
         login({ username: email, password: password })
             .unwrap()
             .then((response) => {
-                console.log(response);
                 localStorage.setItem('access_token', response.access_token);
                 localStorage.setItem('refresh_token', response.refresh_token);
                 navigate('/employee');
             })
             .catch((error) => {
-                console.log('error', error);
+                console.error('error', error);
                 setError(error.data.detail);
             });
     }

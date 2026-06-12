@@ -12,8 +12,25 @@ import Button from './Button';
 import DialogBox from './DialogBox/DialogBox';
 import InputGroup from './InputGroup';
 
+export interface EmployeeAddress {
+    line1: string;
+    city: string;
+    country: string;
+    postal_code: string | number;
+}
+
+export interface EmployeeData {
+    id: number;
+    name: string;
+    email: string;
+    joiningDate: string;
+    role: string;
+    status: 'Probation' | 'Active' | 'Inactive' | 'Terminated';
+    experience: string;
+    address: EmployeeAddress;
+}
 interface FormProps {
-    employeeData?: EmployeeResponse;
+    employeeData?: EmployeeData;
     onSubmit: React.FormEventHandler<HTMLFormElement>;
 }
 
@@ -77,7 +94,7 @@ function Form({ employeeData, onSubmit }: FormProps) {
                                         </div>
                                     </div>
                                 ) : (
-                                    <p>{file.name}</p>
+                                    <p data-testid="file-name">{file.name}</p>
                                 )}
                             </div>
                         </FileUploader>
@@ -88,6 +105,7 @@ function Form({ employeeData, onSubmit }: FormProps) {
                                 className="outline"
                                 label="Cancel"
                                 onClick={removeFile}
+                                testId="cancel-file"
                             />
 
                             <Button
@@ -192,7 +210,7 @@ function Form({ employeeData, onSubmit }: FormProps) {
                 <label className="file-upload" onClick={() => setUploadDialog(true)}>
                     <p>Upload ID Proof</p>
 
-                    <div>
+                    <div data-testid="file-upload">
                         {file && (
                             <div className="preview">
                                 {file.name}
@@ -224,6 +242,7 @@ function Form({ employeeData, onSubmit }: FormProps) {
                         typeName="button"
                         className="outline"
                         label="Cancel"
+                        testId="form-cancel"
                         onClick={() => navigate(-1)}
                     />
                 </div>

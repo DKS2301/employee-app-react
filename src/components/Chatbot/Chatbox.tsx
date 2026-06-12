@@ -3,14 +3,26 @@ import './Chatbot.css';
 import Button from '@components/Button';
 import chat from '@images/chat.svg';
 import send from '@images/send.svg';
-import typing from '@images/typing.svg';
 import React, { useEffect, useRef, useState } from 'react';
+
+import useSSEChat from '@/hooks/useSSEChat';
 
 import Message from './Message';
 
 function Chatbox() {
     const [isOpen, setIsOpen] = useState(false);
     const chatboxRef = useRef<HTMLDivElement>(null);
+    const [typedMessage, setTypedMessage] = useState('');
+    const { messages, isStreaming, errorMessage, sendMessage } = useSSEChat();
+
+    const handleMessageSend = async () => {
+        if (typedMessage.trim() === '' && !isStreaming) {
+            return;
+        }
+        await sendMessage(typedMessage);
+        setTypedMessage('');
+    };
+
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
             if (chatboxRef.current && !chatboxRef.current.contains(event.target as Node)) {
@@ -26,35 +38,45 @@ function Chatbox() {
     return (
         <div ref={chatboxRef}>
             {isOpen ? (
-                <div className="chatbox">
-                    <div className="chatbox-title">
-                        <img src={chat} alt="chat" />
-                        Help Desk
-                    </div>
-                    <div className="chatbox-content">
-                        {/* <div className='messages' > */}
-                        <Message content="Lorem Ipsum dolor sit amet" id="sent" />
-                        <Message
-                            content="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-                            id="received"
-                        />
-                        <Message content={<img src={typing} alt="typing" />} id="received" />
-                        <Message
-                            content="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-                            id="received"
-                        />
-                        <Message
-                            content="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-                            id="received"
-                        />
-
-                        {/* </div> */}
-                        <div className="send-tab">
-                            <input placeholder="Type your message here.." />
-                            <Button className="send-btn" label={<img src={send} alt="send" />} />
+                <>
+                    <div className="chatbox">
+                        <div className="chatbox-title">
+                            <img src={chat} alt="chat" />
+                            Help Desk
                         </div>
+                        <div className="chatbox-content">
+                            {messages.map((message, idx) => (
+                                <Message
+                                    content={message.msg}
+                                    id={message.role === 'user' ? 'sent' : 'received'}
+                                    key={`msg-${idx}`}
+                                />
+                            ))}
+                            {/* </div> */}
+                            <form
+                                className="send-tab"
+                                onSubmit={(e) => {
+                                    e.preventDefault();
+                                    handleMessageSend();
+                                }}
+                            >
+                                <input
+                                    placeholder="Type your message here.."
+                                    value={typedMessage}
+                                    onChange={(e) => setTypedMessage(e.target.value)}
+                                />
+                                <Button
+                                    className="send-btn"
+                                    disabled={isStreaming}
+                                    label={
+                                        <img src={send} alt="send" onClick={handleMessageSend} />
+                                    }
+                                />
+                            </form>
+                        </div>
+                        {<p className="error">{errorMessage}</p>}
                     </div>
-                </div>
+                </>
             ) : (
                 <div className="chatbox closed" onClick={() => setIsOpen((prev) => !prev)}>
                     <img src={chat} alt="chat" />

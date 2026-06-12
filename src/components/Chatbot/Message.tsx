@@ -1,7 +1,6 @@
-import React, { type ReactNode } from 'react';
-
+import typing from '@images/typing.svg';
 interface messageProps {
-    content: ReactNode;
+    content: string;
     id: string;
 }
 
@@ -9,7 +8,7 @@ function Message({ content, id }: messageProps) {
     return (
         <>
             <div className="message-sent" id={id}>
-                {content}
+                {content === '' ? <img src={typing} alt="typing" /> : content}
             </div>
         </>
     );
