@@ -42,8 +42,9 @@ export default function useSSEChat() {
             }
         } finally {
             setIsStreaming(false);
+            abortRef.current = null;
         }
     }, []);
 
-    return { messages, isStreaming, errorMessage, sendMessage };
+    return { messages, isStreaming, errorMessage, sendMessage, abortRef };
 }

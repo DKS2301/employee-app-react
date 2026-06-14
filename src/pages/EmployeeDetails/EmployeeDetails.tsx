@@ -37,13 +37,15 @@ function EmployeeDetails() {
               .join(', ')
         : 'No Address Provided';
 
+    const handleEdit = () => navigate(`/employee/create/${employee.id}`);
+
     return (
         <Card>
             <TitleCard label="Employee Details">
                 <Button
                     typeName="submit"
                     className=""
-                    onClick={() => navigate(`/employee/create/${employee.id}`)}
+                    onClick={handleEdit}
                     label={
                         <>
                             <img src={pen} alt="edit" className="details" />

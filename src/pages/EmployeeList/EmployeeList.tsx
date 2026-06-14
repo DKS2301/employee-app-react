@@ -62,16 +62,18 @@ function EmployeeList() {
         }
     }, [isDeleteSuccess]);
 
-    const handleDelete = (e: React.MouseEvent<HTMLButtonElement>, id: number) => {
+    const handleEmployeeDelete = (e: React.MouseEvent<HTMLButtonElement>, id: number) => {
         e.stopPropagation();
         setSelectedEmployeeId(id);
         setDialogOpen(true);
     };
 
-    const handleEdit = (e: React.MouseEvent<HTMLButtonElement>, id: number) => {
+    const handleEmployeeEdit = (e: React.MouseEvent<HTMLButtonElement>, id: number) => {
         e.stopPropagation();
         navigate(`create/${id}`);
     };
+
+    const handleEmployeeCreate = () => navigate('/employee/create');
 
     const cancelDelete = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.stopPropagation();
@@ -158,7 +160,7 @@ function EmployeeList() {
                                 Create Employee
                             </>
                         }
-                        onClick={() => navigate('/employee/create')}
+                        onClick={handleEmployeeCreate}
                     />
                 </TitleCard>
 
@@ -194,8 +196,8 @@ function EmployeeList() {
                             >
                                 <Row
                                     employee={employee}
-                                    deleteAction={(e) => handleDelete(e, employee.id)}
-                                    editAction={(e) => handleEdit(e, employee.id)}
+                                    handleDeleteAction={(e) => handleEmployeeDelete(e, employee.id)}
+                                    handleEditAction={(e) => handleEmployeeEdit(e, employee.id)}
                                 />
                             </div>
                         ))

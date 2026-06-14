@@ -14,11 +14,11 @@ interface Employee {
 
 interface rowProps {
     employee: Employee;
-    deleteAction: React.MouseEventHandler<HTMLButtonElement>;
-    editAction: React.MouseEventHandler<HTMLButtonElement>;
+    handleDeleteAction: React.MouseEventHandler<HTMLButtonElement>;
+    handleEditAction: React.MouseEventHandler<HTMLButtonElement>;
 }
 
-function Row({ employee, deleteAction, editAction }: rowProps) {
+function Row({ employee, handleDeleteAction, handleEditAction }: rowProps) {
     return (
         <div className="table-row" key={employee.id} data-testid={`employee-row-${employee.id}`}>
             <ul>
@@ -36,14 +36,14 @@ function Row({ employee, deleteAction, editAction }: rowProps) {
                         testId="delete-btn"
                         label={<img src={bin} />}
                         onClick={(e) => {
-                            deleteAction(e);
+                            handleDeleteAction(e);
                         }}
                     />
                     <Button
                         className="actions"
                         testId="edit-btn"
                         label={<img src={pen} />}
-                        onClick={editAction}
+                        onClick={handleEditAction}
                     />
                 </li>
             </ul>

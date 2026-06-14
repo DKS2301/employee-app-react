@@ -2,6 +2,7 @@ import './Chatbot.css';
 
 import Button from '@components/Button';
 import chat from '@images/chat.svg';
+import close from '@images/close.svg';
 import send from '@images/send.svg';
 import React, { useEffect, useRef, useState } from 'react';
 
@@ -13,14 +14,25 @@ function Chatbox() {
     const [isOpen, setIsOpen] = useState(false);
     const chatboxRef = useRef<HTMLDivElement>(null);
     const [typedMessage, setTypedMessage] = useState('');
-    const { messages, isStreaming, errorMessage, sendMessage } = useSSEChat();
+    const { messages, isStreaming, errorMessage, sendMessage, abortRef } = useSSEChat();
 
     const handleMessageSend = async () => {
         if (typedMessage.trim() === '' && !isStreaming) {
             return;
         }
-        await sendMessage(typedMessage);
         setTypedMessage('');
+        await sendMessage(typedMessage);
+    };
+
+    const handleStopStreaming = () => {
+        abortRef.current?.abort();
+    };
+
+    const handleFormSubmit = (e) => {
+        e.preventDefault();
+        if (!isStreaming) {
+            handleMessageSend();
+        }
     };
 
     useEffect(() => {
@@ -53,23 +65,32 @@ function Chatbox() {
                                 />
                             ))}
                             {/* </div> */}
-                            <form
-                                className="send-tab"
-                                onSubmit={(e) => {
-                                    e.preventDefault();
-                                    handleMessageSend();
-                                }}
-                            >
+                            <form className="send-tab" onSubmit={(e) => handleFormSubmit}>
                                 <input
-                                    placeholder="Type your message here.."
+                                    placeholder={
+                                        isStreaming
+                                            ? 'Generating response...'
+                                            : 'Type your message here..'
+                                    }
                                     value={typedMessage}
                                     onChange={(e) => setTypedMessage(e.target.value)}
                                 />
                                 <Button
                                     className="send-btn"
-                                    disabled={isStreaming}
                                     label={
-                                        <img src={send} alt="send" onClick={handleMessageSend} />
+                                        !isStreaming ? (
+                                            <img
+                                                src={send}
+                                                alt="send"
+                                                onClick={handleMessageSend}
+                                            />
+                                        ) : (
+                                            <img
+                                                src={close}
+                                                alt="stop"
+                                                onClick={handleStopStreaming}
+                                            />
+                                        )
                                     }
                                 />
                             </form>
