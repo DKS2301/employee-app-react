@@ -13,6 +13,8 @@ import dropdown from '@images/dropdown.svg';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 
+import ErrorElement from '@/components/ErrorElement/ErrorElement';
+
 import {
     useDeleteEmployeeMutation,
     useLazyGetEmployeesByFilterQuery,
@@ -41,26 +43,8 @@ function EmployeeList() {
     ] = useDeleteEmployeeMutation();
 
     useEffect(() => {
-        if (isError) {
-            console.error('Failed to fetch employees', error);
-        }
-    }, [isError, error]);
-
-    useEffect(() => {
         filterEmployeeByStatus({ status });
     }, [status, filterEmployeeByStatus]);
-
-    useEffect(() => {
-        if (isDeleteError) {
-            console.error('Failed to delete employee', deleteError);
-        }
-    }, [isDeleteError, deleteError]);
-
-    useEffect(() => {
-        if (isDeleteSuccess) {
-            setDialogOpen(false);
-        }
-    }, [isDeleteSuccess]);
 
     const handleEmployeeDelete = (e: React.MouseEvent<HTMLButtonElement>, id: number) => {
         e.stopPropagation();
@@ -120,12 +104,10 @@ function EmployeeList() {
                                 onClick={confirmDelete}
                             />
                         </div>
-                        {isDeleteError && (
-                            <p className="error">
-                                Unable to delete employee. Please try again later.
-                            </p>
-                        )}
                     </>
+                    {isDeleteError && (
+                        <p className="error">Unable to delete employee. Please try again later.</p>
+                    )}
                 </DialogBox>
             )}
 
@@ -179,16 +161,14 @@ function EmployeeList() {
                             </p>
                         </div>
                     ) : employees.length === 0 ? (
-                        <div className="list-state empty-state">
-                            <h3>No Employees Found</h3>
-
-                            <p>
-                                No employee records match the selected filter:
-                                <strong> {status}</strong>
-                            </p>
-                        </div>
+                        <ErrorElement
+                            title="NO Employees Found"
+                            message="No employee records match the selected filter:"
+                            actionLabel="Retry"
+                            onAction={() => navigate('/employee')}
+                        />
                     ) : (
-                        employees.map((employee) => (
+                        employees.map((employee, idx) => (
                             <div
                                 key={employee.id}
                                 onClick={() => navigate(`/employee/${employee.id}`)}
@@ -196,6 +176,7 @@ function EmployeeList() {
                             >
                                 <Row
                                     employee={employee}
+                                    className={idx % 2 === 1 ? 'alternate' : ''}
                                     handleDeleteAction={(e) => handleEmployeeDelete(e, employee.id)}
                                     handleEditAction={(e) => handleEmployeeEdit(e, employee.id)}
                                 />

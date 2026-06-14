@@ -20,16 +20,15 @@ export interface CreateEmployeePayload extends EmployeeFormValues {
     address: AddressValues;
 }
 
-export interface CreateAddressPayload extends EmployeeFormValues {
-    id: number;
-    address: AddressValues;
-}
-
-export interface UpdateEmployeePayload extends EmployeeFormValues {
+export interface CreateAddressPayload extends Partial<AddressValues> {
     id: number;
 }
 
-export interface UpdateAddressPayload extends AddressValues {
+export interface UpdateEmployeePayload extends Partial<EmployeeFormValues> {
+    id: number;
+}
+
+export interface UpdateAddressPayload extends Partial<AddressValues> {
     id: number;
     address_id: number;
 }

@@ -110,7 +110,7 @@ function EmployeeCreate() {
             await updateEmployee({
                 id: Number(id),
                 ...changedEmployeeValues,
-            } as never);
+            });
         }
 
         const nextAddressValues = getAddressValues(formData);
@@ -128,12 +128,12 @@ function EmployeeCreate() {
                     id: Number(id),
                     address_id: employee.address.id,
                     ...changedAddressValues,
-                } as never);
+                });
             } else {
                 await createEmployeeAddress({
                     id: Number(id),
                     ...changedAddressValues,
-                } as never);
+                });
             }
         }
 

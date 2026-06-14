@@ -1,0 +1,33 @@
+.page-state {
+    min-height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    padding: 2rem;
+    text-align: center;
+}
+
+.error-state h3 {
+    color: var(--theme-error);
+}
+
+.error-state p {
+    max-width: 500px;
+    color: var(--theme-muted-foreground);
+    line-height: 1.5;
+}
+
+.page-state-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 10px;
+}
+
+@media (max-width: 768px) {
+    .page-state-actions {
+        width: 100%;
+        flex-direction: column;
+    }
+}

@@ -4,7 +4,7 @@ import Button from '@components/Button';
 import chat from '@images/chat.svg';
 import close from '@images/close.svg';
 import send from '@images/send.svg';
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import useSSEChat from '@/hooks/useSSEChat';
 
@@ -65,7 +65,7 @@ function Chatbox() {
                                 />
                             ))}
                             {/* </div> */}
-                            <form className="send-tab" onSubmit={(e) => handleFormSubmit}>
+                            <form className="send-tab" onSubmit={handleFormSubmit}>
                                 <input
                                     placeholder={
                                         isStreaming

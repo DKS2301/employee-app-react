@@ -16,11 +16,16 @@ interface rowProps {
     employee: Employee;
     handleDeleteAction: React.MouseEventHandler<HTMLButtonElement>;
     handleEditAction: React.MouseEventHandler<HTMLButtonElement>;
+    className?: string;
 }
 
-function Row({ employee, handleDeleteAction, handleEditAction }: rowProps) {
+function Row({ employee, handleDeleteAction, handleEditAction, className = '' }: rowProps) {
     return (
-        <div className="table-row" key={employee.id} data-testid={`employee-row-${employee.id}`}>
+        <div
+            className={`table-row ${className}`}
+            key={employee.id}
+            data-testid={`employee-row-${employee.id}`}
+        >
             <ul>
                 <li>{employee.name}</li>
                 <li>{employee.id}</li>
