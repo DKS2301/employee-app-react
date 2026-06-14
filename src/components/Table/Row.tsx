@@ -4,9 +4,9 @@ import Button from '@components/Button';
 import bin from '@images/bin.svg';
 import pen from '@images/pen.svg';
 interface Employee {
-    id: string;
+    id: number;
     name: string;
-    joiningDate: string;
+    joining_date: string;
     role: string;
     status: string;
     experience: string;

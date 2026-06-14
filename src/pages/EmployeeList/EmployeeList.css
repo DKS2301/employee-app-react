@@ -1,9 +1,55 @@
+.list-state {
+    min-height: 250px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    padding: 2rem;
+    text-align: center;
+}
+
+.list-state h3 {
+    margin: 0;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.list-state p {
+    margin: 0;
+    max-width: 450px;
+    line-height: 1.5;
+    color: #666;
+}
+
+.error-state {
+    color: #eb6666;
+}
+
+.error-state h3 {
+    color: var(--theme-error);
+}
+
+.empty-state {
+    border: 1px dashed #d9d9d9;
+    border-radius: 8px;
+    background-color: #fafafa;
+}
+
+.error {
+    margin-top: 1rem;
+    text-align: center;
+    color: var(--theme-error);
+    font-size: 0.9rem;
+}
+
 .table-rows {
-    overflow-y: scroll;
+    overflow-y: auto;
     display: flex;
     flex-direction: column;
     gap: 2vh;
     scrollbar-width: none;
+    min-height: 300px;
 }
 
 .error {

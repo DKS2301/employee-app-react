@@ -10,15 +10,13 @@ import Title from '@components/Table/Title';
 import TitleCard from '@components/TitleCard';
 import add from '@images/add.svg';
 import dropdown from '@images/dropdown.svg';
-import React, { Suspense, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 
 import {
     useDeleteEmployeeMutation,
     useLazyGetEmployeesByFilterQuery,
 } from '../../api-services/employees/employees.api';
-
-// const Row = React.lazy(() => import('../../components/Table/Row'));
 
 function EmployeeList() {
     const navigate = useNavigate();
@@ -120,6 +118,11 @@ function EmployeeList() {
                                 onClick={confirmDelete}
                             />
                         </div>
+                        {isDeleteError && (
+                            <p className="error">
+                                Unable to delete employee. Please try again later.
+                            </p>
+                        )}
                     </>
                 </DialogBox>
             )}
@@ -161,14 +164,27 @@ function EmployeeList() {
 
                 <Title />
 
-                {/* <Suspense fallback={<Fallback />}> */}
                 <div className="table-rows">
                     {isLoading || isFetching ? (
                         <Fallback />
                     ) : isError ? (
-                        <p>Failed to load employees.</p>
+                        <div className="list-state error-state">
+                            <h3>Unable to Load Employees</h3>
+
+                            <p>
+                                We couldn't retrieve employee information right now. Please check
+                                your connection and try again.
+                            </p>
+                        </div>
                     ) : employees.length === 0 ? (
-                        <p>No employees found for "{status}".</p>
+                        <div className="list-state empty-state">
+                            <h3>No Employees Found</h3>
+
+                            <p>
+                                No employee records match the selected filter:
+                                <strong> {status}</strong>
+                            </p>
+                        </div>
                     ) : (
                         employees.map((employee) => (
                             <div
@@ -185,7 +201,6 @@ function EmployeeList() {
                         ))
                     )}
                 </div>
-                {/* </Suspense> */}
 
                 <Chatbox />
             </Card>

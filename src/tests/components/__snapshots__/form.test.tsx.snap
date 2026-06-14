@@ -16,8 +16,6 @@ exports[`Form Component > match snapshot 1`] = `
       <input
         id="employee-name"
         name="employee-name"
-        placeholder="Employee Name"
-        type="text"
         value=""
       />
     </div>
@@ -32,8 +30,7 @@ exports[`Form Component > match snapshot 1`] = `
       <input
         id="employee-email"
         name="employee-email"
-        placeholder="Employee Email"
-        type="text"
+        type="email"
         value=""
       />
     </div>
@@ -65,7 +62,6 @@ exports[`Form Component > match snapshot 1`] = `
       <input
         id="joining-date"
         name="joining-date"
-        placeholder="Joining Date"
         type="date"
         value=""
       />
@@ -184,8 +180,6 @@ exports[`Form Component > match snapshot 1`] = `
       <input
         id="experience"
         name="experience"
-        placeholder="Experience"
-        type="text"
         value=""
       />
     </div>

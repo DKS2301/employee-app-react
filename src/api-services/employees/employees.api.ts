@@ -2,6 +2,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 import type {
     AddressResponse,
+    CreateAddressPayload,
     CreateEmployeePayload,
     EmployeeResponse,
     EmployeeSearchPayload,
@@ -62,11 +63,21 @@ const employeeBaseApi = createApi({
             },
             invalidatesTags: ['Employees'],
         }),
+        createEmployeeAddress: builder.mutation<AddressResponse, CreateAddressPayload>({
+            query: ({ id, ...payload }) => {
+                return {
+                    url: `employee/${id}/addresses`,
+                    method: 'POST',
+                    body: payload,
+                };
+            },
+            invalidatesTags: ['Employees'],
+        }),
         updateEmployee: builder.mutation<EmployeeResponse, UpdateEmployeePayload>({
             query: ({ id, ...payload }) => {
                 return {
                     url: `employee/${id}`,
-                    method: 'PUT',
+                    method: 'PATCH',
                     body: payload,
                 };
             },
@@ -96,6 +107,7 @@ export const {
     useLazyGetEmployeesByFilterQuery,
     useLazyGetEmployeesQuery,
     useLazyGetEmployeeByIdQuery,
+    useCreateEmployeeAddressMutation,
 } = employeeBaseApi;
 
 export default employeeBaseApi;

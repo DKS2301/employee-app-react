@@ -36,3 +36,8 @@
         padding: 5px;
     }
 }
+
+.error-text {
+    color: var(--theme-error);
+    font-size: 0.9rem;
+}

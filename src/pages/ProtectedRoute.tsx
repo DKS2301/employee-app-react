@@ -1,10 +1,11 @@
 import React from 'react';
-import { Outlet } from 'react-router';
+import { Outlet, useNavigate } from 'react-router';
 
 import Login from './Login/Login';
 
 function ProtectedRoute() {
-    const isAuthenticated = true;
+    const isAuthenticated = !!localStorage.getItem('access_token');
+
     if (!isAuthenticated) {
         return <Login />;
     }

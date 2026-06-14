@@ -39,7 +39,7 @@ function Login() {
             .then((response) => {
                 localStorage.setItem('access_token', response.access_token);
                 localStorage.setItem('refresh_token', response.refresh_token);
-                navigate('/employee');
+                navigate('/employee', { replace: true });
             })
             .catch((error) => {
                 console.error('error', error);
