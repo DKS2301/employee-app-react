@@ -1,12 +1,16 @@
-import React from 'react';
-import { Outlet, useNavigate } from 'react-router';
+import { Outlet } from 'react-router';
+
+import { useGetCurrentUserQuery } from '@/api-services/auth/login.api';
+import Fallback from '@/components/Fallback';
 
 import Login from './Login/Login';
 
 function ProtectedRoute() {
-    const isAuthenticated = !!localStorage.getItem('access_token');
-
-    if (!isAuthenticated) {
+    const { data, isLoading, isError } = useGetCurrentUserQuery();
+    if (isLoading) {
+        return <Fallback />;
+    }
+    if (isError) {
         return <Login />;
     }
 

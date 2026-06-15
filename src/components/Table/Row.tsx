@@ -9,7 +9,7 @@ interface Employee {
     joining_date: string;
     role: string;
     status: string;
-    experience: string;
+    experience: number;
 }
 
 interface rowProps {
@@ -34,7 +34,7 @@ function Row({ employee, handleDeleteAction, handleEditAction, className = '' }:
                 <li className={employee.status.toLowerCase()} id="status-row">
                     {employee.status}
                 </li>
-                <li>{employee.experience}</li>
+                <li>{`${employee.experience} Years`}</li>
                 <li>
                     <Button
                         className="actions"

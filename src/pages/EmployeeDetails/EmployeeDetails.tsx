@@ -85,7 +85,10 @@ function EmployeeDetails() {
 
                             <div className="detail-item">
                                 <span className="detail-label">Experience</span>
-                                <span className="detail-value">{employee.experience || 'N/A'}</span>
+                                <span className="detail-value">
+                                    {(employee?.experience && `${employee.experience} Years`) ||
+                                        'N/A'}
+                                </span>
                             </div>
                         </div>
 

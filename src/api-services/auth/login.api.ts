@@ -1,4 +1,5 @@
 import employeeBaseApi from '../employees/employees.api';
+import type { LoginPayload, LoginResponse } from './types';
 
 export const loginApi = employeeBaseApi.injectEndpoints({
     endpoints: (builder) => ({
@@ -16,7 +17,12 @@ export const loginApi = employeeBaseApi.injectEndpoints({
                 };
             },
         }),
+        getCurrentUser: builder.query<LoginResponse, void>({
+            query: () => ({
+                url: '/auth/me',
+            }),
+        }),
     }),
 });
 
-export const { useLoginMutation } = loginApi;
+export const { useLoginMutation, useGetCurrentUserQuery } = loginApi;

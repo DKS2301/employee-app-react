@@ -24,10 +24,3 @@
     gap: 12px;
     margin-top: 10px;
 }
-
-@media (max-width: 768px) {
-    .page-state-actions {
-        width: 100%;
-        flex-direction: column;
-    }
-}

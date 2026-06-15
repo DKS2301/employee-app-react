@@ -11,7 +11,7 @@ export interface EmployeeFormValues {
     role: string;
     status: string;
     joining_date: string;
-    experience: string;
+    experience: number;
     age: number;
 }
 
@@ -63,7 +63,7 @@ export interface EmployeeResponse {
     role: string;
     status: string;
     joining_date: string;
-    experience: string;
+    experience: number;
     age: number;
     addresses: AddressResponse[];
 }

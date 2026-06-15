@@ -15,6 +15,14 @@ function Chatbox() {
     const chatboxRef = useRef<HTMLDivElement>(null);
     const [typedMessage, setTypedMessage] = useState('');
     const { messages, isStreaming, errorMessage, sendMessage, abortRef } = useSSEChat();
+    const messagesEndRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        messagesEndRef.current?.scrollIntoView({
+            behavior: 'smooth',
+            block: 'end',
+        });
+    }, [messages]);
 
     const handleMessageSend = async () => {
         if (typedMessage.trim() === '' && !isStreaming) {
@@ -28,7 +36,7 @@ function Chatbox() {
         abortRef.current?.abort();
     };
 
-    const handleFormSubmit = (e) => {
+    const handleFormSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (!isStreaming) {
             handleMessageSend();
@@ -64,7 +72,8 @@ function Chatbox() {
                                     key={`msg-${idx}`}
                                 />
                             ))}
-                            {/* </div> */}
+                            <div ref={messagesEndRef} />
+
                             <form className="send-tab" onSubmit={handleFormSubmit}>
                                 <input
                                     placeholder={

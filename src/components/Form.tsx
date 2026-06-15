@@ -24,7 +24,7 @@ export interface EmployeeData {
     joiningDate: string;
     role: string;
     status?: string;
-    experience: string;
+    experience: number;
     address?: EmployeeAddress;
 }
 interface FormProps {
@@ -83,7 +83,7 @@ function Form({ employeeData, onSubmit }: FormProps) {
         if (!formValues.joiningDate) {
             nextErrors.joiningDate = 'Joining date is required.';
         }
-        if (!formValues.experience.trim()) {
+        if (!formValues.experience) {
             nextErrors.experience = 'Experience is required.';
         }
 
@@ -314,6 +314,7 @@ function Form({ employeeData, onSubmit }: FormProps) {
                     <input
                         id="experience"
                         name="experience"
+                        type="number"
                         value={formValues.experience}
                         onChange={(event) => updateField('experience', event.target.value)}
                     />

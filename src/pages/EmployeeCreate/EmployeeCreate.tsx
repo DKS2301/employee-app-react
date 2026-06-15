@@ -46,7 +46,7 @@ function EmployeeCreate() {
         role: (formData.get('role') as string) ?? '',
         status: (formData.get('status') as string) ?? '',
         joining_date: (formData.get('joining-date') as string) ?? '',
-        experience: (formData.get('experience') as string) ?? '',
+        experience: formData.get('experience') ?? 0,
         age: 21,
     });
 
@@ -100,7 +100,7 @@ function EmployeeCreate() {
             role: employee?.role ?? '',
             status: employee?.status ?? '',
             joining_date: employee?.joiningDate ?? '',
-            experience: employee?.experience ?? '',
+            experience: employee?.experience ?? 0,
             age: 21,
         };
 

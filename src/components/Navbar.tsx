@@ -1,14 +1,15 @@
 import '../App.css';
 
 import users from '@images/users.svg';
-import React from 'react';
+import { useNavigate } from 'react-router';
 
 function Navbar() {
+    const navigate = useNavigate();
     return (
         <>
             <nav>
                 <div className="kv-header">
-                    <div>
+                    <div onClick={() => navigate('/employee')}>
                         <img src={users} alt="Employee list icon" />
                     </div>
                     <h3>Employee list</h3>
